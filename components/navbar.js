@@ -3,8 +3,8 @@ import { CheckCircle, Award, Smile } from "react-feather";
 import ActiveLink from "./activeLink";
 import Avatar from "./avatar";
 
-const Navbar = props => {
-  const activeClassname = "border-b-2 border-indigo-600 text-indigo-600";
+const NavBar = props => {
+  const activeClassname = "border-b-2 border-indigo-600 text-indigo-600 z-30";
   return (
     <nav className="shadow bg-white fixed top-0 w-full">
       <div className="w-full md:w-1/2 mx-auto">
@@ -36,4 +36,4 @@ const Navbar = props => {
   );
 };
 
-export default Navbar;
+export default NavBar;

@@ -1,9 +1,9 @@
-import Navbar from "../components/navbar";
+import NavBar from "../components/navbar";
 import Container from "../components/container";
 
 export default () => (
   <div className="h-screen flex flex-col">
-    <Navbar title="Premios" />
+    <NavBar title="Premios" />
     <Container>Pruebas</Container>
   </div>
 );

@@ -1,15 +1,15 @@
 import Link from "next/link";
 import { Plus } from "react-feather";
 
-import Navbar from "../components/navbar";
+import NavBar from "../components/navbar";
 import Container from "../components/container";
-import Deed from "../components/deed";
+import Timeline from "../components/timeline";
 
 export default () => (
   <div className="h-screen flex flex-col">
-    <Navbar title="Inicio" />
+    <NavBar title="Inicio" />
     <Container>
-      <Deed />
+      <Timeline />
     </Container>
     <div className="fixed bottom-0 w-full text-center mb-10">
       <Link href="/compose">

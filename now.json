@@ -1,5 +1,16 @@
 {
   "name": "deeds",
   "version": 2,
-  "alias": "deeds"
+  "alias": "deeds",
+  "build": {
+    "env": {
+      "API_KEY": "@deed_apikey",
+      "AUTH_DOMAIN": "@deed_authdomain",
+      "DATABASE_URL": "@deed_databaseurl",
+      "PROJECT_ID": "@deed_messagingsenderid",
+      "MESSAGING_SENDER_ID": "@deed_messagingsenderid",
+      "STORAGE_BUCKET": "@deed_storagebucket",
+      "APP_ID": "@deed_appid"
+    }
+  }
 }
