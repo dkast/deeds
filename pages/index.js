@@ -4,9 +4,11 @@ import { Plus } from "react-feather";
 import NavBar from "../components/navbar";
 import Container from "../components/container";
 import Timeline from "../components/timeline";
+import Head from "../components/head";
 
 export default () => (
   <div className="h-screen flex flex-col">
+    <Head title="Inicio" />
     <NavBar title="Inicio" />
     <Container>
       <Timeline />
