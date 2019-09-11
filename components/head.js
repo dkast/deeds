@@ -1,16 +1,13 @@
 import NextHead from "next/head";
 import { string } from "prop-types";
 
-const defaultDescription = "";
-const defaultOGURL = "";
-const defaultOGImage = "";
-
 const Head = props => (
   <NextHead>
     <meta charset="UTF-8" />
-    <title>{props.title || ""}</title>
+    <title>{props.title || "Deeds"}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes"></meta>
     <link
       rel="apple-touch-icon"
       sizes="180x180"

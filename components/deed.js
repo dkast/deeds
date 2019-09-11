@@ -1,8 +1,25 @@
 const Deed = props => {
-  const { actType, points } = props;
+  const { dataItem } = props;
 
   const getMessageFromActivity = actType => {
-    return "Message";
+    let message;
+    switch (actType) {
+      case "activity_tbrush":
+        message = "se cepilló los dientes.";
+        break;
+      case "activity_batj":
+        message = "se dió un baño.";
+        break;
+      case "activity_homework":
+        message = "hizo la tarea";
+        break;
+      case "activity_hand":
+        message = "ayudó en la casa";
+        break;
+      default:
+        break;
+    }
+    return message;
   };
 
   return (
@@ -23,12 +40,12 @@ const Deed = props => {
         <div className="mx-4 my-2 flex flex-col justify-between flex-grow">
           <div className="text-indigo-600">
             <span className="font-bold mr-1">Diego</span>
-            <span>{getMessageFromActivity(actType)}</span>
+            <span>{getMessageFromActivity(dataItem.type)}</span>
           </div>
           <div className="flex items-center h-5 self-end">
             <img src="/static/images/gem.svg" className="w-5 h-5" alt="coin" />
             <span className="ml-1 tracking-tight font-bold text-orange-500">
-              {points}
+              {dataItem.points}
             </span>
           </div>
         </div>

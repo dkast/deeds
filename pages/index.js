@@ -8,7 +8,7 @@ import Head from "../components/head";
 
 export default () => (
   <div className="h-screen flex flex-col">
-    <Head title="Inicio" />
+    <Head />
     <NavBar title="Inicio" />
     <Container>
       <Timeline />
