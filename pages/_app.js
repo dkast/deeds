@@ -2,6 +2,7 @@ import React from "react";
 import App from "next/app";
 
 import { FirebaseAppProvider, config } from "../firebase";
+import { UserProvider } from "../context/userContext";
 import "../static/css/style.css";
 
 const firebaseConfig = {

@@ -1,6 +1,6 @@
 import "firebase/auth";
-
 import "firebase/firestore";
+import React, { useContext } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { PongSpinner } from "react-spinners-kit";
 import { useRouter } from "next/router";
@@ -8,10 +8,12 @@ import { useRouter } from "next/router";
 import { useFirebaseApp } from "../firebase";
 import Head from "../components/head";
 import Avatar from "../components/avatar";
+import { UserContext } from "../context/userContext";
 
 const SignIn = () => {
   const firebaseApp = useFirebaseApp();
   const router = useRouter();
+  const [user, setUser] = useContext(UserContext);
 
   const [values, loading, error] = useCollectionData(
     firebaseApp.firestore().collection("users"),
@@ -20,11 +22,12 @@ const SignIn = () => {
     }
   );
 
-  const login = userEmail => {
+  const login = user => {
     firebaseApp
       .auth()
-      .signInWithEmailAndPassword(userEmail, "fortnite")
+      .signInWithEmailAndPassword(user.email, "fortnite")
       .then(() => {
+        setUser(user);
         router.push("/");
       });
   };
@@ -40,7 +43,7 @@ const SignIn = () => {
             <div
               className="text-center mx-4 cursor-pointer"
               key={doc.id}
-              onClick={() => login(doc.email)}
+              onClick={() => login(doc)}
             >
               <Avatar size="xl" />
               <div className="text-indigo-600 font-bold m-4">{doc.name}</div>
