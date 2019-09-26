@@ -45,7 +45,7 @@ const SignIn = () => {
               key={doc.id}
               onClick={() => login(doc)}
             >
-              <Avatar size="xl" />
+              <Avatar size="xl" imgFile={doc.avatar} bgColor={doc.color} />
               <div className="text-indigo-600 font-bold m-4">{doc.name}</div>
             </div>
           ))}

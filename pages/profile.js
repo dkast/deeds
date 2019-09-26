@@ -5,10 +5,14 @@ import Auth from "../components/auth";
 
 export default () => (
   <Auth>
-    <div className="h-screen flex flex-col">
+    <div className="h-screen flex flex-col bg-gray-200">
       <Head title="Mi Perfil" />
-      <NavBar title="Mi Perfil" />
-      <Container>Perfil</Container>
+      <NavBar title="Mi Perfil" showAvatar={false} />
+      <Container>
+        <div className="text-center">
+          <span className="text-3xl text-gray-500">Proximamente</span>
+        </div>
+      </Container>
     </div>
   </Auth>
 );

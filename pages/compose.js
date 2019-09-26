@@ -79,7 +79,7 @@ const Compose = () => {
           className="mt-2 flex items-center cursor-pointer"
           onClick={() => signOut()}
         >
-          <Avatar />
+          {user && <Avatar imgFile={user.avatar} bgColor={user.color} />}
           <div className="-ml-3 pl-3 pr-2 py-2 bg-gray-300 rounded-tr-full rounded-br-full">
             <span className="mx-3 font-bold">{user ? user.name : ""}</span>
             <ChevronDown className="inline-block" />

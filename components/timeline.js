@@ -29,21 +29,7 @@ const Timeline = () => {
           return dataItem;
         }
       });
-      // value.docs.map(doc => {
-      //   let dataItem = doc.data();
-      //   if (dataItem.userRef) {
-      //     let userItem = dataItem.userRef
-      //       .get()
-      //       .then(res => {
-      //         dataItem.userData = res.data();
-      //         // console.dir(dataItem.userData);
-      //         items.push(<Deed dataItem={dataItem} key={doc.id} />);
-      //       })
-      //       .catch(error => {
-      //         console.error(error);
-      //       });
-      //   }
-      // });
+
       const dataItems = await Promise.all(items);
       setData({ items: dataItems, isFetching: false });
     };
@@ -75,30 +61,6 @@ const Timeline = () => {
       </>
     );
   }
-
-  // return (
-  //   <div>
-  //     {value && (
-  //       <div>
-  //         {value.docs.map(doc => {
-  //           let dataItem = doc.data();
-  //           if (dataItem.userRef) {
-  //             let userItem = dataItem.userRef
-  //               .get()
-  //               .then(res => {
-  //                 dataItem.userData = res.data();
-  //                 console.dir(dataItem.userData);
-  //                 return <Deed dataItem={dataItem} key={doc.id} />;
-  //               })
-  //               .catch(error => {
-  //                 console.error(error);
-  //               });
-  //           }
-  //         })}
-  //       </div>
-  //     )}
-  //   </div>
-  // );
 };
 
 export default Timeline;

@@ -3,60 +3,37 @@ import React, { useState, useEffect } from "react";
 const Deed = props => {
   const { dataItem } = props;
   const [icon, setIcon] = useState("");
+  const [message, setMessage] = useState("");
 
-  useEffect(
-    () => {
-      let message;
-      let icon;
-      switch (dataItem.actType) {
-        case "activity_tbrush":
-          message = "se cepilló los dientes.";
-          icon = "toothbrush.svg";
-          break;
-        case "activity_bath":
-          message = "se dió un baño.";
-          icon = "bathtub.svg";
-          break;
-        case "activity_homework":
-          message = "hizo la tarea.";
-          icon = "book.svg";
-          break;
-        case "activity_help":
-          message = "ayudó en la casa.";
-          icon = "hand.svg";
-          break;
-        default:
-          break;
-      }
-      setIcon(icon);
-    },
-    { dataItem }
-  );
-
-  const getMessageFromActivity = actType => {
+  useEffect(() => {
     let message;
     let icon;
-    switch (actType) {
+    switch (dataItem.actType) {
       case "activity_tbrush":
         message = "se cepilló los dientes.";
+        icon = "toothbrush.svg";
         break;
       case "activity_bath":
         message = "se dió un baño.";
+        icon = "bathtub.svg";
         break;
       case "activity_homework":
-        message = "hizo la tarea";
+        message = "hizo la tarea.";
+        icon = "book.svg";
         break;
       case "activity_help":
-        message = "ayudó en la casa";
+        message = "ayudó en la casa.";
+        icon = "hand.svg";
         break;
       default:
         break;
     }
-    return message;
-  };
+    setIcon(icon);
+    setMessage(message);
+  }, [dataItem]);
 
   return (
-    <div className="rounded-lg shadow-lg bg-white">
+    <div className="rounded-lg shadow-lg bg-white mb-3">
       {/* {console.dir(dataItem)}
       {console.dir(dataItem.userData)} */}
       <div className="flex p-2">
@@ -67,15 +44,16 @@ const Deed = props => {
             alt="icon"
           />
           <img
-            src="/static/images/avatars/mario-run.jpg"
+            src={`/static/images/avatars/${dataItem.userData.avatar}`}
             className="rounded-full h-10 w-10 object-cover absolute bottom-0 right-0 border-2 border-white"
             alt="Avatar"
+            style={{ backgroundColor: `#${dataItem.userData.color}` }}
           />
         </div>
         <div className="mx-4 my-2 flex flex-col justify-between flex-grow">
-          <div className="text-indigo-600">
+          <div className="text-indigo-700">
             <span className="font-bold mr-1">{dataItem.userData.name}</span>
-            <span>{getMessageFromActivity(dataItem.actType)}</span>
+            <span>{message}</span>
           </div>
           <div className="flex items-center h-5 self-end">
             <img src="/static/images/gem.svg" className="w-5 h-5" alt="coin" />
