@@ -68,7 +68,7 @@ const Compose = () => {
 
   return (
     <Auth>
-      <div className="h-screen flex flex-col items-center">
+      <div className="h-screen flex flex-col items-center bg-white">
         <Head title="Agrega una actividad" />
         <Link href="/">
           <a className="self-start p-4 pt-6 -mb-16 text-indigo-600">

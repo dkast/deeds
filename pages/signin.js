@@ -33,7 +33,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="h-screen flex flex-row items-center justify-center">
+    <div className="h-screen flex flex-row items-center justify-center bg-white">
       <Head title="Selecciona perfil" />
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <PongSpinner color="#6B46C1" />}

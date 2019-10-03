@@ -5,7 +5,7 @@ import Auth from "../components/auth";
 
 export default () => (
   <Auth>
-    <div className="h-screen flex flex-col bg-gray-200">
+    <div className="h-screen flex flex-col">
       <Head title="Logros" />
       <NavBar title="Premios" />
       <Container>
