@@ -10,7 +10,10 @@ const Timeline = () => {
   const firebaseApp = useFirebaseApp();
 
   const [value, loading, error] = useCollection(
-    firebaseApp.firestore().collection("deeds"),
+    firebaseApp
+      .firestore()
+      .collection("deeds")
+      .orderBy("timestamp", "desc"),
     {
       snapshotListenOptions: { includeMetadataChanges: true }
     }

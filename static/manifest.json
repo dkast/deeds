@@ -1,4 +1,7 @@
 {
   "name": "Deeds",
-  "short_name": "Deeds"
+  "short_name": "Deeds",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone"
 }
