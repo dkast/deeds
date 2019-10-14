@@ -1,7 +1,7 @@
 {
   "name": "deeds",
   "version": 2,
-  "alias": "deeds",
+  "alias": "deberes",
   "build": {
     "env": {
       "API_KEY": "@deed_apikey",

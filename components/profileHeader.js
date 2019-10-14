@@ -19,7 +19,7 @@ const ProfileHeader = props => {
           </div>
           <div className="flex items-center justify-center bg-white p-4 -mt-8 w-1/2 rounded shadow-lg mx-auto">
             <img src="/static/images/gem.svg" className="w-8 h-8" alt="coin" />
-            <span className="ml-2 tracking-tight text-2xl font-bold text-orange-500">
+            <span className="ml-2 tracking-tight text-xl font-bold text-orange-500">
               {user.points} puntos
             </span>
           </div>
