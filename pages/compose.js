@@ -11,6 +11,8 @@ import ActivityButton from "../components/activityButton";
 import Head from "../components/head";
 import Auth from "../components/auth";
 import useUser from "../hooks/useUser";
+import useModal from "../hooks/useModal";
+import Modal from "../components/modal";
 
 const Compose = () => {
   const firebaseApp = useFirebaseApp();
@@ -18,6 +20,7 @@ const Compose = () => {
   const signOut = () => {
     firebaseApp.auth().signOut();
   };
+  const { isShowing, toggle } = useModal();
 
   const activityTapped = actType => {
     let points = 0;
@@ -38,32 +41,33 @@ const Compose = () => {
       default:
         break;
     }
-    firebaseApp
-      .firestore()
-      .collection("deeds")
-      .add({
-        actType: actType,
-        timestamp: new Date(),
-        points: points,
-        userRef: firebaseApp.firestore().doc(`users/${user.email}`)
-      })
-      .then(ref => {
-        firebaseApp
-          .firestore()
-          .doc(`users/${user.email}`)
-          .update({
-            points: userPoints + points
-          })
-          .then(() => {
-            alert("documento actualizado");
-          })
-          .catch(error => {
-            alert("ocurrio un error actualizadon al usuario");
-          });
-      })
-      .catch(error => {
-        alert("ocurrio un error grabando la actividad");
-      });
+    // firebaseApp
+    //   .firestore()
+    //   .collection("deeds")
+    //   .add({
+    //     actType: actType,
+    //     timestamp: new Date(),
+    //     points: points,
+    //     userRef: firebaseApp.firestore().doc(`users/${user.email}`)
+    //   })
+    //   .then(ref => {
+    //     firebaseApp
+    //       .firestore()
+    //       .doc(`users/${user.email}`)
+    //       .update({
+    //         points: userPoints + points
+    //       })
+    //       .then(() => {
+    //         alert("documento actualizado");
+    //       })
+    //       .catch(error => {
+    //         alert("ocurrio un error actualizadon al usuario");
+    //       });
+    //   })
+    //   .catch(error => {
+    //     alert("ocurrio un error grabando la actividad");
+    //   });
+    toggle();
   };
 
   return (
@@ -113,6 +117,7 @@ const Compose = () => {
           />
         </div>
       </div>
+      <Modal isShowing={isShowing} hide={toggle}></Modal>
     </Auth>
   );
 };
