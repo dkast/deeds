@@ -4,6 +4,7 @@ import React, { useContext } from "react";
 import { ChevronDown } from "react-feather";
 import { ArrowLeft } from "react-feather";
 import Link from "next/link";
+import Lottie from "react-lottie";
 
 import { useFirebaseApp } from "../firebase";
 import Avatar from "../components/avatar";
@@ -13,6 +14,7 @@ import Auth from "../components/auth";
 import useUser from "../hooks/useUser";
 import useModal from "../hooks/useModal";
 import Modal from "../components/modal";
+import * as animationData from "../public/static/assets/stone.json";
 
 const Compose = () => {
   const firebaseApp = useFirebaseApp();
@@ -41,33 +43,32 @@ const Compose = () => {
       default:
         break;
     }
-    // firebaseApp
-    //   .firestore()
-    //   .collection("deeds")
-    //   .add({
-    //     actType: actType,
-    //     timestamp: new Date(),
-    //     points: points,
-    //     userRef: firebaseApp.firestore().doc(`users/${user.email}`)
-    //   })
-    //   .then(ref => {
-    //     firebaseApp
-    //       .firestore()
-    //       .doc(`users/${user.email}`)
-    //       .update({
-    //         points: userPoints + points
-    //       })
-    //       .then(() => {
-    //         alert("documento actualizado");
-    //       })
-    //       .catch(error => {
-    //         alert("ocurrio un error actualizadon al usuario");
-    //       });
-    //   })
-    //   .catch(error => {
-    //     alert("ocurrio un error grabando la actividad");
-    //   });
-    toggle();
+    firebaseApp
+      .firestore()
+      .collection("deeds")
+      .add({
+        actType: actType,
+        timestamp: new Date(),
+        points: points,
+        userRef: firebaseApp.firestore().doc(`users/${user.email}`)
+      })
+      .then(ref => {
+        firebaseApp
+          .firestore()
+          .doc(`users/${user.email}`)
+          .update({
+            points: userPoints + points
+          })
+          .then(() => {
+            toggle();
+          })
+          .catch(error => {
+            alert("ocurrio un error actualizadon al usuario");
+          });
+      })
+      .catch(error => {
+        alert("ocurrio un error grabando la actividad");
+      });
   };
 
   return (
@@ -91,7 +92,7 @@ const Compose = () => {
         </div>
         <div className="my-8">
           <span className="text-indigo-600 text-2xl font-bold">
-            ¿Que tarea completaste?
+            ¿Qué tarea completaste?
           </span>
         </div>
         <div className="flex flex-wrap">
@@ -117,7 +118,35 @@ const Compose = () => {
           />
         </div>
       </div>
-      <Modal isShowing={isShowing} hide={toggle}></Modal>
+      <Modal isShowing={isShowing} hide={toggle}>
+        <Lottie
+          options={{
+            loop: true,
+            autoplay: true,
+            animationData: animationData.default,
+            rendererSettings: { preserveAspectRatio: "xMidYMid slice" }
+          }}
+          width={300}
+          height={200}
+        ></Lottie>
+        <h3 className="text-center text-indigo-600 text-2xl font-bold my-2">
+          ¡Bien hecho!
+        </h3>
+        <div className="text-center mb-4">
+          Sigue realizando tareas para acumular más puntos
+        </div>
+        {/* <button
+          className="bg-indigo-600 active:bg-indigo-800 text-white text-center w-full px-4 py-2 rounded"
+          onClick={toggle}
+        >
+          Listo
+        </button> */}
+        <Link href="/">
+          <a className="bg-indigo-600 active:bg-indigo-800 text-white text-center block w-full px-4 py-2 rounded">
+            Listo
+          </a>
+        </Link>
+      </Modal>
     </Auth>
   );
 };

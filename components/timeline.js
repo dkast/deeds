@@ -57,9 +57,8 @@ const Timeline = () => {
   if (value && data.items) {
     return (
       <>
-        {data.items.map(item => {
-          console.dir(item);
-          return <Deed dataItem={item} key={item.id} />;
+        {data.items.map((item, index) => {
+          return <Deed dataItem={item} key={index} />;
         })}
       </>
     );
