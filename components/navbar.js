@@ -11,7 +11,7 @@ const NavBar = props => {
 
   const activeClassname = "border-b-2 border-indigo-600 text-indigo-600";
   return (
-    <nav className="shadow bg-white fixed top-0 w-full z-30">
+    <nav className="shadow bg-white fixed top-0 w-full z-30 dark-mode:bg-black dark-mode:border-gray-900 dark-mode:border-b">
       <div className="w-full md:w-1/2 mx-auto">
         <div className="flex p-4">
           {user && showAvatar && (
@@ -29,7 +29,9 @@ const NavBar = props => {
             </Link>
           )}
           <div className={showAvatar ? "pt-2" : "ml-4"}>
-            <span className="text-2xl font-bold">{title}</span>
+            <span className="text-2xl font-bold dark-mode:text-white">
+              {title}
+            </span>
           </div>
         </div>
         {showAvatar && (

@@ -7,7 +7,7 @@ const ActivityButton = props => {
           className="w-20 h-20 mb-2"
           alt="icon"
         />
-        <span>{props.text}</span>
+        <span className="dark-mode:text-white">{props.text}</span>
       </div>
     </div>
   );

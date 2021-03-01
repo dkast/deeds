@@ -35,7 +35,7 @@ const Deed = props => {
   }, [dataItem]);
 
   return (
-    <div className="rounded shadow bg-white mb-3">
+    <div className="rounded shadow bg-white dark-mode:bg-gray-900 mb-3">
       {/* {console.dir(dataItem)}
       {console.dir(dataItem.userData)} */}
       <div className="flex p-2">
@@ -54,10 +54,10 @@ const Deed = props => {
         </div>
         <div className="ml-4 mr-2 my-2 flex flex-col justify-between flex-grow">
           <div>
-            <span className="text-indigo-700 mr-1">
+            <span className="text-indigo-700 dark-mode:text-indigo-500 mr-1">
               {dataItem.userData.name}
             </span>
-            <span>{message}</span>
+            <span className="dark-mode:text-gray-300">{message}</span>
           </div>
           <div className="flex justify-between h-5">
             <span className="inline-block text-gray-600 text-sm">
