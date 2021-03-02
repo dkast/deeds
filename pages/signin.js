@@ -18,11 +18,11 @@ const SignIn = () => {
   const [values, loading, error] = useCollectionData(
     firebaseApp.firestore().collection("users"),
     {
-      snapshotListenOptions: { includeMetadataChanges: true }
+      snapshotListenOptions: { includeMetadataChanges: true },
     }
   );
 
-  const login = user => {
+  const login = (user) => {
     firebaseApp
       .auth()
       .signInWithEmailAndPassword(user.email, "fortnite")
@@ -33,13 +33,13 @@ const SignIn = () => {
   };
 
   return (
-    <div className="h-screen flex flex-row items-center justify-center bg-white dark-mode:bg-black">
+    <div className="h-screen flex flex-row items-center justify-center bg-white dark:bg-black">
       <Head title="Selecciona perfil" />
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <Loader />}
       {values && (
         <React.Fragment>
-          {values.map(doc => (
+          {values.map((doc) => (
             <div
               className="text-center mx-4 cursor-pointer"
               key={doc.id}

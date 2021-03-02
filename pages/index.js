@@ -7,7 +7,7 @@ import Timeline from "../components/timeline";
 import Head from "../components/head";
 import Auth from "../components/auth";
 
-export default () => (
+const Home = () => (
   <Auth>
     <div className="h-screen flex flex-col">
       <Head />
@@ -17,7 +17,7 @@ export default () => (
       </Container>
       <div className="fixed bottom-0 w-full text-center mb-10">
         <Link href="/compose">
-          <a className="rounded-full w-16 h-16 bg-indigo-600 hover:bg-indigo-800 p-4 text-white dark-mode:text-gray-900 shadow-lg inline-block">
+          <a className="rounded-full w-16 h-16 bg-indigo-600 hover:bg-indigo-800 p-4 text-white dark:text-gray-900 shadow-lg inline-block">
             <Plus size={32} />
           </a>
         </Link>
@@ -25,3 +25,5 @@ export default () => (
     </div>
   </Auth>
 );
+
+export default Home;

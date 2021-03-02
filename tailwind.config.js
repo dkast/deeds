@@ -1,10 +1,14 @@
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   theme: {
-    extend: {},
-    screens: {
-      "dark-mode": { raw: "(prefers-color-scheme: dark)" }
-    }
+    extend: {
+      colors: {
+        orange: colors.orange,
+      },
+    },
+    darkMode: "media",
   },
   variants: {},
-  plugins: []
+  plugins: [],
 };

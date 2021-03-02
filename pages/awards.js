@@ -3,7 +3,7 @@ import Container from "../components/container";
 import Head from "../components/head";
 import Auth from "../components/auth";
 
-export default () => (
+const Awards = () => (
   <Auth>
     <div className="h-screen flex flex-col">
       <Head title="Logros" />
@@ -16,3 +16,5 @@ export default () => (
     </div>
   </Auth>
 );
+
+export default Awards;
