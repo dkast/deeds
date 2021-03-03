@@ -1,4 +1,5 @@
-const Avatar = props => {
+import Image from "next/image";
+const Avatar = (props) => {
   const {
     size = "md",
     imgFile = "mario-run.jpg",
@@ -10,26 +11,28 @@ const Avatar = props => {
 
   switch (size) {
     case "sm":
-      sizeClass = "10";
+      sizeClass = 40;
       break;
     case "md":
-      sizeClass = "12";
+      sizeClass = 48;
       break;
     case "lg":
-      sizeClass = "20";
+      sizeClass = 64;
       break;
     case "xl":
-      sizeClass = "24";
+      sizeClass = 80;
     default:
       break;
   }
 
   return (
-    <img
-      className={`h-${sizeClass} w-${sizeClass} object-cover rounded-full shadow z-10 ${className}`}
+    <Image
+      className={`object-cover rounded-full shadow z-10 ${className}`}
       src={`/static/images/avatars/${imgFile}`}
-      style={{ backgroundColor: `#${bgColor}` }}
       alt="avatar"
+      style={{ backgroundColor: `#${bgColor}` }}
+      width={sizeClass}
+      height={sizeClass}
     />
   );
 };
