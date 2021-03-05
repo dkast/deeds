@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import esLocale from "date-fns/locale/es";
+import { formatDistanceToNowStrict } from "date-fns";
 
 const Deed = (props) => {
   const { dataItem } = props;
@@ -36,9 +36,7 @@ const Deed = (props) => {
 
   return (
     <div className="rounded shadow bg-white dark:bg-gray-900 mb-3">
-      {/* {console.dir(dataItem)}
-      {console.dir(dataItem.userData)} */}
-      <div className="flex p-2">
+      <div className="flex p-4">
         <div className="relative py-1 px-2">
           <img
             src={`/static/images/${icon}`}
@@ -52,30 +50,30 @@ const Deed = (props) => {
             style={{ backgroundColor: `#${dataItem.userData.color}` }}
           />
         </div>
-        <div className="ml-4 mr-2 my-2 flex flex-col justify-between flex-grow">
-          <div>
-            <span className="text-indigo-700 dark:text-indigo-500 mr-1">
+        <div className="flex flex-row justify-between flex-grow">
+          <div className="ml-4">
+            <span className="text-gray-900 dark:text-indigo-500 font-semibold">
               {dataItem.userData.name}
             </span>
-            <span className="dark:text-gray-300">{message}</span>
-          </div>
-          <div className="flex justify-between h-5">
-            <span className="inline-block text-gray-600 text-sm">
-              {"Hace " +
-                formatDistanceToNow(dataItem.timestamp.toDate(), {
-                  locale: esLocale,
-                })}
-            </span>
-            <div className="flex items-center">
+            <span className="ml-1 text-gray-600 dark:text-gray-300">{message}</span>
+            <div className="flex items-center justify-center bg-orange-100 w-16 rounded-full px-3 py-0.5 mt-1">
               <img
                 src="/static/images/gem.svg"
                 className="w-4 h-4 inline"
                 alt="coin"
               />
-              <span className="ml-1 tracking-tight font-bold text-orange-500">
+              <span className="ml-2 tracking-tight font-bold text-orange-600">
                 {dataItem.points}
               </span>
             </div>
+          </div>
+          <div className="">
+            <span className="inline-block text-gray-400 text-sm">
+              {
+                formatDistanceToNowStrict(dataItem.timestamp.toDate(), {
+                  locale: esLocale,
+                })}
+            </span>
           </div>
         </div>
       </div>

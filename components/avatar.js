@@ -1,8 +1,7 @@
-import Image from "next/image";
 const Avatar = (props) => {
   const {
     size = "md",
-    imgFile = "mario-run.jpg",
+    imgFile,
     bgColor = "8C19FF",
     className,
     ...restProps
@@ -11,29 +10,34 @@ const Avatar = (props) => {
 
   switch (size) {
     case "sm":
-      sizeClass = 40;
+      sizeClass = "10";
       break;
     case "md":
-      sizeClass = 48;
+      sizeClass = "12";
       break;
     case "lg":
-      sizeClass = 64;
+      sizeClass = "20";
       break;
     case "xl":
-      sizeClass = 80;
+      sizeClass = "24";
     default:
       break;
   }
 
+  if (imgFile) {
+    return (
+      <img
+        className={`h-${sizeClass} w-${sizeClass} object-cover rounded-full shadow z-10 ${className}`}
+        src={`/static/images/avatars/${imgFile}`}
+        style={{ backgroundColor: `#${bgColor}` }}
+        alt="avatar"
+      />
+    );
+  }
+
   return (
-    <Image
-      className={`object-cover rounded-full shadow z-10 ${className}`}
-      src={`/static/images/avatars/${imgFile}`}
-      alt="avatar"
-      style={{ backgroundColor: `#${bgColor}` }}
-      width={sizeClass}
-      height={sizeClass}
-    />
+    <div
+      className={`h-${sizeClass} w-${sizeClass} bg-gray-300 animate-pulse object-cover rounded-full shadow z-10 ${className}`}></div>
   );
 };
 

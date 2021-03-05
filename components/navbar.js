@@ -14,9 +14,9 @@ const NavBar = (props) => {
     <nav className="shadow bg-white fixed top-0 w-full z-30 dark:bg-black dark:border-gray-900 dark:border-b">
       <div className="w-full md:w-1/2 mx-auto">
         <div className="flex p-4">
-          {user && showAvatar && (
+          {showAvatar && (
             <div className="mr-4">
-              <Avatar imgFile={user.avatar} bgColor={user.color} />
+              <Avatar imgFile={user?.avatar} bgColor={user?.color} />
             </div>
           )}
           {!showAvatar && (
