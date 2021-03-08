@@ -10,7 +10,7 @@ const Awards = () => (
       <NavBar title="Premios" />
       <Container>
         <div className="text-center">
-          <span className="text-3xl text-gray-500">Proximamente</span>
+          <span className="text-3xl text-gray-400">Proximamente</span>
         </div>
       </Container>
     </div>

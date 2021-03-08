@@ -24,7 +24,7 @@ const Compose = () => {
   };
   const { isShowing, toggle } = useModal();
 
-  const activityTapped = (actType) => {
+  const activityTapped = actType => {
     let points = 0;
     let userPoints = user.points;
     switch (actType) {
@@ -50,23 +50,23 @@ const Compose = () => {
         actType: actType,
         timestamp: new Date(),
         points: points,
-        userRef: firebaseApp.firestore().doc(`users/${user.email}`),
+        userRef: firebaseApp.firestore().doc(`users/${user.email}`)
       })
-      .then((ref) => {
+      .then(ref => {
         firebaseApp
           .firestore()
           .doc(`users/${user.email}`)
           .update({
-            points: userPoints + points,
+            points: userPoints + points
           })
           .then(() => {
             toggle();
           })
-          .catch((error) => {
+          .catch(error => {
             alert("ocurrio un error actualizadon al usuario");
           });
       })
-      .catch((error) => {
+      .catch(error => {
         alert("ocurrio un error grabando la actividad");
       });
   };
@@ -81,10 +81,11 @@ const Compose = () => {
           </a>
         </Link>
         <div
-          className="mt-2 flex items-center cursor-pointer"
-          onClick={() => signOut()}>
+          className="mt-3 flex items-center cursor-pointer"
+          onClick={() => signOut()}
+        >
           {user && <Avatar imgFile={user.avatar} bgColor={user.color} />}
-          <div className="-ml-3 pl-3 pr-2 py-2 bg-gray-300 dark:bg-gray-900 dark:text-gray-600 rounded-tr-full rounded-br-full">
+          <div className="-ml-3 pl-3 pr-2 py-2 bg-gray-200 dark:bg-gray-900 dark:text-gray-600 rounded-tr-full rounded-br-full">
             <span className="mx-3 font-bold">{user ? user.name : ""}</span>
             <ChevronDown className="inline-block" />
           </div>
@@ -123,10 +124,11 @@ const Compose = () => {
             loop: true,
             autoplay: true,
             animationData: animationData.default,
-            rendererSettings: { preserveAspectRatio: "xMidYMid slice" },
+            rendererSettings: { preserveAspectRatio: "xMidYMid slice" }
           }}
           width={300}
-          height={200}></Lottie>
+          height={200}
+        ></Lottie>
         <h3 className="text-center text-indigo-600 text-2xl font-bold my-2">
           ¡Bien hecho!
         </h3>

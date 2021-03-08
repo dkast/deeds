@@ -35,9 +35,9 @@ const Deed = (props) => {
   }, [dataItem]);
 
   return (
-    <div className="rounded shadow bg-white dark:bg-gray-900 mb-3">
-      <div className="flex p-4">
-        <div className="relative py-1 px-2">
+    <div className="bg-white dark:bg-gray-900 mb-3 border-b border-gray-200 px-4 pb-3">
+      <div className="flex">
+        <div className="relative">
           <img
             src={`/static/images/${icon}`}
             className="w-12 h-12"
@@ -50,31 +50,32 @@ const Deed = (props) => {
             style={{ backgroundColor: `#${dataItem.userData.color}` }}
           />
         </div>
-        <div className="flex flex-row justify-between flex-grow">
-          <div className="ml-4">
+        <div className="ml-4 flex flex-col flex-grow">
+          <div className="flex justify-between flex-grow items-baseline">
             <span className="text-gray-900 dark:text-indigo-500 font-semibold">
               {dataItem.userData.name}
             </span>
-            <span className="ml-1 text-gray-600 dark:text-gray-300">{message}</span>
-            <div className="flex items-center justify-center bg-orange-100 w-16 rounded-full px-3 py-0.5 mt-1">
-              <img
-                src="/static/images/gem.svg"
-                className="w-4 h-4 inline"
-                alt="coin"
-              />
-              <span className="ml-2 tracking-tight font-bold text-orange-600">
-                {dataItem.points}
-              </span>
-            </div>
-          </div>
-          <div className="">
-            <span className="inline-block text-gray-400 text-sm">
-              {
-                formatDistanceToNowStrict(dataItem.timestamp.toDate(), {
-                  locale: esLocale,
-                })}
+            <span className="text-gray-400 text-sm">
+              {formatDistanceToNowStrict(dataItem.timestamp.toDate(), {
+                locale: esLocale,
+              })}
             </span>
           </div>
+          <div className="flex justify-between flex-grow items-start">
+            <span className="text-gray-600 dark:text-gray-300">{message}</span>
+          </div>
+        </div>
+      </div>
+      <div className="flex justify-end">
+        <div className="flex items-center justify-center bg-orange-100 w-16 rounded-lg px-3 py-0.5">
+          <img
+            src="/static/images/gem.svg"
+            className="w-4 h-4 inline"
+            alt="coin"
+          />
+          <span className="ml-2 tracking-tight font-bold text-orange-600">
+            {dataItem.points}
+          </span>
         </div>
       </div>
       {/* <div className="rounded-bl-lg rounded-br-lg bg-indigo-600 h-1"></div> */}
