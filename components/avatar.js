@@ -1,4 +1,4 @@
-const Avatar = (props) => {
+const Avatar = props => {
   const {
     size = "md",
     imgFile,
@@ -16,10 +16,10 @@ const Avatar = (props) => {
       sizeClass = "12";
       break;
     case "lg":
-      sizeClass = "20";
+      sizeClass = "16";
       break;
     case "xl":
-      sizeClass = "24";
+      sizeClass = "20";
     default:
       break;
   }
@@ -37,7 +37,8 @@ const Avatar = (props) => {
 
   return (
     <div
-      className={`h-${sizeClass} w-${sizeClass} bg-gray-300 animate-pulse object-cover rounded-full shadow z-10 ${className}`}></div>
+      className={`h-${sizeClass} w-${sizeClass} bg-gray-300 animate-pulse object-cover rounded-full shadow z-10 ${className}`}
+    ></div>
   );
 };
 

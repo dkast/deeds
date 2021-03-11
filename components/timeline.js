@@ -13,7 +13,8 @@ const Timeline = () => {
     firebaseApp
       .firestore()
       .collection("deeds")
-      .orderBy("timestamp", "desc"),
+      .orderBy("timestamp", "desc")
+      .limit(10),
     {
       snapshotListenOptions: { includeMetadataChanges: true }
     }

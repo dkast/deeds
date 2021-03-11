@@ -76,7 +76,7 @@ const Compose = () => {
       <div className="h-screen flex flex-col items-center bg-white dark:bg-black">
         <Head title="Agrega una actividad" />
         <Link href="/">
-          <a className="self-start p-4 pt-6 -mb-16 text-indigo-600 dark:text-gray-200">
+          <a className="self-start p-4 pt-6 -mb-16 text-indigo-600">
             <ArrowLeft />
           </a>
         </Link>
