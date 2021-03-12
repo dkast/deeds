@@ -35,8 +35,8 @@ const Deed = props => {
   }, [dataItem]);
 
   return (
-    <div className="bg-white dark:bg-black mb-3 border-b border-gray-200 dark:border-gray-800 px-4 pb-3">
-      <div className="flex">
+    <div className="bg-white dark:bg-black mb-3 border-b border-gray-200 dark:border-gray-800 px-4">
+      <div className="flex pt-2 pb-6">
         <div className="relative">
           <img
             src={`/static/images/${icon}`}
@@ -60,23 +60,24 @@ const Deed = props => {
                 {message}
               </span>
             </div>
-            <span className="text-gray-400 text-sm">
-              {formatDistanceToNowStrict(dataItem.timestamp.toDate(), {
-                locale: esLocale
-              })}
-            </span>
           </div>
-          <div className="flex justify-end">
-            <div className="flex items-center justify-center mt-2 bg-orange-100 dark:bg-orange-800 dark:bg-opacity-20 w-16 rounded-full px-3 py-0.5">
-              <img
-                src="/static/images/gem.svg"
-                className="w-4 h-4 inline"
-                alt="coin"
-              />
-              <span className="ml-2 tracking-tight font-bold text-orange-600">
-                {dataItem.points}
-              </span>
-            </div>
+          <span className="text-gray-400 text-sm">
+            Hace{" "}
+            {formatDistanceToNowStrict(dataItem.timestamp.toDate(), {
+              locale: esLocale
+            })}
+          </span>
+        </div>
+        <div className="flex justify-end">
+          <div className="flex items-center justify-center my-2 bg-orange-100 dark:bg-orange-800 dark:bg-opacity-20 w-16 rounded-full px-3 py-0.5">
+            <img
+              src="/static/images/gem.svg"
+              className="w-4 h-4 inline"
+              alt="coin"
+            />
+            <span className="ml-2 tracking-tight font-bold text-orange-600">
+              {dataItem.points}
+            </span>
           </div>
         </div>
       </div>
