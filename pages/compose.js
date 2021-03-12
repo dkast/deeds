@@ -43,8 +43,6 @@ const Compose = () => {
       default:
         break;
     }
-    toggle();
-    return;
     firebaseApp
       .firestore()
       .collection("deeds")
