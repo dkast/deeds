@@ -43,6 +43,8 @@ const Compose = () => {
       default:
         break;
     }
+    toggle();
+    return;
     firebaseApp
       .firestore()
       .collection("deeds")
@@ -129,10 +131,10 @@ const Compose = () => {
           width={300}
           height={200}
         ></Lottie>
-        <h3 className="text-center text-indigo-600 text-2xl font-bold my-2">
+        <h3 className="text-center text-indigo-600 dark:text-indigo-500 text-2xl font-bold my-2">
           ¡Bien hecho!
         </h3>
-        <div className="text-center mb-4">
+        <div className="text-center mb-4 dark:text-gray-400">
           Sigue realizando tareas para acumular más puntos
         </div>
         {/* <button
@@ -142,7 +144,7 @@ const Compose = () => {
           Listo
         </button> */}
         <Link href="/">
-          <a className="bg-indigo-600 active:bg-indigo-800 text-white text-center block w-full px-4 py-2 rounded">
+          <a className="bg-gradient-to-br from-indigo-600 to-purple-600 active:bg-indigo-800 text-white text-center block w-full px-4 py-2 rounded">
             Listo
           </a>
         </Link>
