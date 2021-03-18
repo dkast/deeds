@@ -2,6 +2,7 @@ import NavBar from "../components/navbar";
 import Container from "../components/container";
 import Head from "../components/head";
 import Auth from "../components/auth";
+import AwardList from "../components/awardList";
 
 const Awards = () => (
   <Auth>
@@ -10,7 +11,7 @@ const Awards = () => (
       <NavBar title="Premios" />
       <Container>
         <div className="text-center">
-          <span className="text-3xl text-gray-400">Proximamente</span>
+          <AwardList></AwardList>
         </div>
       </Container>
     </div>
