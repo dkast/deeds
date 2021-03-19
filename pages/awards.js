@@ -10,9 +10,7 @@ const Awards = () => (
       <Head title="Logros" />
       <NavBar title="Premios" />
       <Container>
-        <div className="text-center">
-          <AwardList></AwardList>
-        </div>
+        <AwardList></AwardList>
       </Container>
     </div>
   </Auth>

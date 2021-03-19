@@ -1,12 +1,13 @@
-const { useCollection } = require("react-firebase-hooks/firestore");
+const { useCollectionOnce } = require("react-firebase-hooks/firestore");
 const { useFirebaseApp } = require("../firebase");
 
 import Loader from "../components/loader";
+import AwardItem from "./awardItem";
 
 const AwardList = () => {
   const firebaseApp = useFirebaseApp();
 
-  const [value, loading, error] = useCollection(
+  const [value, loading, error] = useCollectionOnce(
     firebaseApp.firestore().collection("awards"),
     {
       snapshotListenOptions: { includeMetadataChanges: true }
@@ -14,7 +15,7 @@ const AwardList = () => {
   );
 
   return (
-    <>
+    <div className="space-y-4">
       {error && (
         <div>
           <p>Error: {error}</p>
@@ -23,11 +24,9 @@ const AwardList = () => {
       {loading && <Loader />}
       {value &&
         value.docs.map(doc => (
-          <span className="dark:text-white" key={doc.id}>
-            {doc.data().description}
-          </span>
+          <AwardItem key={doc.id} dataItem={doc.data()}></AwardItem>
         ))}
-    </>
+    </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import "firebase/firestore";
 import React, { useEffect, useState } from "react";
-import { useCollection } from "react-firebase-hooks/firestore";
+import { useCollectionOnce } from "react-firebase-hooks/firestore";
 
 import { useFirebaseApp } from "../firebase";
 import Deed from "../components/deed";
@@ -9,7 +9,7 @@ import Loader from "../components/loader";
 const Timeline = () => {
   const firebaseApp = useFirebaseApp();
 
-  const [value, loading, error] = useCollection(
+  const [value, loading, error] = useCollectionOnce(
     firebaseApp
       .firestore()
       .collection("deeds")
