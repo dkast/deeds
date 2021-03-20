@@ -1,7 +1,7 @@
 const AwardItem = props => {
   const { dataItem } = props;
   return (
-    <div className="overflow-hidden shadow-sm border border-gray-200 rounded-lg mx-3">
+    <div className="overflow-hidden shadow-sm border border-gray-200 dark:border-gray-900 rounded-lg mx-3">
       <div className="relative">
         <img src={dataItem.imageUrl} className="h-48 w-full object-cover" />
         <div className="text-white bg-orange-500 absolute top-0 right-0 rounded-bl-lg p-2 flex items-center">
