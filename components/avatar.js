@@ -1,7 +1,7 @@
 const Avatar = props => {
   const {
     size = "md",
-    imgFile = "mario-run.jpg",
+    imgFile,
     bgColor = "8C19FF",
     className,
     ...restProps
@@ -16,21 +16,29 @@ const Avatar = props => {
       sizeClass = "12";
       break;
     case "lg":
-      sizeClass = "20";
+      sizeClass = "16";
       break;
     case "xl":
-      sizeClass = "24";
+      sizeClass = "20";
     default:
       break;
   }
 
+  if (imgFile) {
+    return (
+      <img
+        className={`h-${sizeClass} w-${sizeClass} object-cover rounded-full shadow z-10 ${className}`}
+        src={`/static/images/avatars/${imgFile}`}
+        style={{ backgroundColor: `#${bgColor}` }}
+        alt="avatar"
+      />
+    );
+  }
+
   return (
-    <img
-      className={`h-${sizeClass} w-${sizeClass} object-cover rounded-full shadow z-10 ${className}`}
-      src={`/static/images/avatars/${imgFile}`}
-      style={{ backgroundColor: `#${bgColor}` }}
-      alt="avatar"
-    />
+    <div
+      className={`h-${sizeClass} w-${sizeClass} bg-gray-300 animate-pulse object-cover rounded-full shadow z-10 ${className}`}
+    ></div>
   );
 };
 

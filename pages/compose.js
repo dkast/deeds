@@ -73,18 +73,19 @@ const Compose = () => {
 
   return (
     <Auth>
-      <div className="h-screen flex flex-col items-center bg-white dark-mode:bg-black">
+      <div className="h-screen flex flex-col items-center bg-white dark:bg-black">
         <Head title="Agrega una actividad" />
         <Link href="/">
-          <a className="self-start p-4 pt-6 -mb-16 text-indigo-600 dark-mode:text-gray-200">
+          <a className="self-start p-4 pt-6 -mb-16 text-indigo-600">
             <ArrowLeft />
           </a>
         </Link>
         <div
-          className="mt-2 flex items-center cursor-pointer"
-          onClick={() => signOut()}>
+          className="mt-3 flex items-center cursor-pointer"
+          onClick={() => signOut()}
+        >
           {user && <Avatar imgFile={user.avatar} bgColor={user.color} />}
-          <div className="-ml-3 pl-3 pr-2 py-2 bg-gray-300 dark-mode:bg-gray-900 dark-mode:text-gray-600 rounded-tr-full rounded-br-full">
+          <div className="-ml-3 pl-3 pr-2 py-2 bg-gray-200 dark:bg-gray-900 dark:text-gray-600 rounded-tr-full rounded-br-full">
             <span className="mx-3 font-bold">{user ? user.name : ""}</span>
             <ChevronDown className="inline-block" />
           </div>
@@ -126,11 +127,12 @@ const Compose = () => {
             rendererSettings: { preserveAspectRatio: "xMidYMid slice" }
           }}
           width={300}
-          height={200}></Lottie>
-        <h3 className="text-center text-indigo-600 text-2xl font-bold my-2">
+          height={200}
+        ></Lottie>
+        <h3 className="text-center text-indigo-600 dark:text-indigo-500 text-2xl font-bold my-2">
           ¡Bien hecho!
         </h3>
-        <div className="text-center mb-4">
+        <div className="text-center mb-4 dark:text-gray-400">
           Sigue realizando tareas para acumular más puntos
         </div>
         {/* <button
@@ -140,7 +142,7 @@ const Compose = () => {
           Listo
         </button> */}
         <Link href="/">
-          <a className="bg-indigo-600 active:bg-indigo-800 text-white text-center block w-full px-4 py-2 rounded">
+          <a className="bg-gradient-to-br from-indigo-600 to-purple-600 active:bg-indigo-800 text-white text-center block w-full px-4 py-2 rounded">
             Listo
           </a>
         </Link>

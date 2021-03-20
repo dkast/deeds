@@ -5,7 +5,7 @@ import Auth from "../components/auth";
 import ProfileHeader from "../components/profileHeader";
 import useUser from "../hooks/useUser";
 
-export default () => {
+const Profile = () => {
   const { user, loading, userError } = useUser();
 
   return (
@@ -20,3 +20,5 @@ export default () => {
     </Auth>
   );
 };
+
+export default Profile;

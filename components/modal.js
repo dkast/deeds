@@ -14,7 +14,7 @@ const Modal = ({ isShowing, hide, children }) =>
             tabIndex={-1}
             role="dialog"
           >
-            <div className="bg-white w-full h-auto mx-2 mb-10 rounded shadow-lg p-4">
+            <div className="bg-white dark:bg-gray-900 w-full h-auto mx-2 mb-10 rounded shadow-lg p-4">
               <div className="block text-right text-gray-600">
                 <button onClick={hide}>
                   <X></X>
