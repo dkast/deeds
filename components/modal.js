@@ -1,8 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { X } from "react-feather";
+import { motion } from "framer-motion";
 
-const Modal = ({ isShowing, hide, children }) =>
+const Modal = React.forwardRef(({ isShowing, hide, children }, ref) =>
   isShowing
     ? ReactDOM.createPortal(
         <React.Fragment>
@@ -14,18 +15,24 @@ const Modal = ({ isShowing, hide, children }) =>
             tabIndex={-1}
             role="dialog"
           >
-            <div className="bg-white dark:bg-gray-900 w-full h-auto mx-2 mb-10 rounded shadow-lg p-4">
+            <motion.div
+              initial={{ y: 300, opacity: 0, scale: 0.8 }}
+              animate={{ y: 0, opacity: 1, scale: 1 }}
+              transition={{ type: "spring", duration: 0.5 }}
+              className="bg-white dark:bg-gray-900 w-full h-auto mx-2 mb-10 rounded shadow-lg p-4"
+            >
               <div className="block text-right text-gray-600">
                 <button onClick={hide}>
                   <X></X>
                 </button>
               </div>
               {children}
-            </div>
+            </motion.div>
           </div>
         </React.Fragment>,
         document.body
       )
-    : null;
+    : null
+);
 
 export default Modal;

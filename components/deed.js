@@ -27,6 +27,10 @@ const Deed = props => {
         message = "ayudó en la casa.";
         icon = "hand.svg";
         break;
+      case "activity_online":
+        message = "tomó clase online.";
+        icon = "online.svg";
+        break;
       default:
         break;
     }

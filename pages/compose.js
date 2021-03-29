@@ -40,6 +40,9 @@ const Compose = () => {
       case "activity_help":
         points = 20;
         break;
+      case "activity_online":
+        points = 80;
+        break;
       default:
         break;
     }
@@ -116,6 +119,11 @@ const Compose = () => {
             text="Ayudar en la casa"
             onClick={() => activityTapped("activity_help")}
           />
+          <ActivityButton
+            icon="online"
+            text="Tomar clase online"
+            onClick={() => activityTapped("activity_online")}
+          />
         </div>
       </div>
       <Modal isShowing={isShowing} hide={toggle}>
@@ -135,12 +143,6 @@ const Compose = () => {
         <div className="text-center mb-4 dark:text-gray-400">
           Sigue realizando tareas para acumular más puntos
         </div>
-        {/* <button
-          className="bg-indigo-600 active:bg-indigo-800 text-white text-center w-full px-4 py-2 rounded"
-          onClick={toggle}
-        >
-          Listo
-        </button> */}
         <Link href="/">
           <a className="bg-gradient-to-br from-indigo-600 to-purple-600 active:bg-indigo-800 text-white text-center block w-full px-4 py-2 rounded">
             Listo
