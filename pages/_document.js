@@ -10,6 +10,10 @@ class MyDocument extends Document {
     return (
       <Html>
         <Head />
+        <link
+          href="https://fonts.googleapis.com/css?family=Inter:400,700&display=swap"
+          rel="stylesheet"
+        />
         <body className="bg-white dark:bg-black">
           <Main />
           <NextScript />
