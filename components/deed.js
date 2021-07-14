@@ -49,7 +49,7 @@ const Deed = props => {
   return (
     <div className="bg-white dark:bg-black mb-3 border-b border-gray-200 dark:border-gray-800 px-4">
       <div className="flex pt-2 pb-6">
-        <div className="relative">
+        <div className="relative bg-gradient-to-br from-indigo-500 to-pink-300 rounded-full">
           <img
             src={`/static/images/${icon}`}
             className="w-12 h-12"

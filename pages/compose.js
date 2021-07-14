@@ -80,7 +80,7 @@ const Compose = () => {
             ¿Qué tarea completaste?
           </span>
         </div>
-        <div className="grid grid-cols-3">
+        <div className="grid grid-cols-2">
           {activites.map(act => (
             <ActivityButton
               key={act.id}
