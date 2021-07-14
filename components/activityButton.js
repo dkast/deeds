@@ -1,9 +1,9 @@
 const ActivityButton = props => {
   return (
-    <div className="w-1/3 cursor-pointer" onClick={props.onClick}>
-      <div className="flex flex-col items-center text-center h-32 m-3 px-2 py-3 rounded-lg bg-gray-100 dark:bg-gray-900">
+    <div className="cursor-pointer" onClick={props.onClick}>
+      <div className="flex flex-col items-center text-center h-36 m-2 px-2 py-3 rounded-xl bg-gray-100 dark:bg-gray-900">
         <img
-          src={"/static/images/" + props.icon + ".svg"}
+          src={"/static/images/" + props.icon}
           className="w-14 h-14 mb-3"
           alt="icon"
         />

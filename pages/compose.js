@@ -15,6 +15,7 @@ import useUser from "../hooks/useUser";
 import useModal from "../hooks/useModal";
 import Modal from "../components/modal";
 import * as animationData from "../public/static/assets/stone.json";
+import activites from "../data/activites";
 
 const Compose = () => {
   const firebaseApp = useFirebaseApp();
@@ -23,36 +24,17 @@ const Compose = () => {
     firebaseApp.auth().signOut();
   };
   const { isShowing, toggle } = useModal();
+  console.dir(activites);
 
   const activityTapped = actType => {
-    let points = 0;
     let userPoints = user.points;
-    switch (actType) {
-      case "activity_tbrush":
-        points = 10;
-        break;
-      case "activity_bath":
-        points = 30;
-        break;
-      case "activity_homework":
-        points = 50;
-        break;
-      case "activity_help":
-        points = 20;
-        break;
-      case "activity_online":
-        points = 80;
-        break;
-      default:
-        break;
-    }
     firebaseApp
       .firestore()
       .collection("deeds")
       .add({
-        actType: actType,
+        actType: actType.id,
         timestamp: new Date(),
-        points: points,
+        points: actType.points,
         userRef: firebaseApp.firestore().doc(`users/${user.email}`)
       })
       .then(ref => {
@@ -60,7 +42,7 @@ const Compose = () => {
           .firestore()
           .doc(`users/${user.email}`)
           .update({
-            points: userPoints + points
+            points: userPoints + actType.points
           })
           .then(() => {
             toggle();
@@ -98,32 +80,16 @@ const Compose = () => {
             ¿Qué tarea completaste?
           </span>
         </div>
-        <div className="flex flex-wrap">
-          <ActivityButton
-            icon="toothbrush"
-            text="Cepillarme los dientes"
-            onClick={() => activityTapped("activity_tbrush")}
-          />
-          <ActivityButton
-            icon="bathtub"
-            text="Bañarme"
-            onClick={() => activityTapped("activity_bath")}
-          />
-          <ActivityButton
-            icon="book"
-            text="Hacer la tarea"
-            onClick={() => activityTapped("activity_homework")}
-          />
-          <ActivityButton
-            icon="hand"
-            text="Ayudar en la casa"
-            onClick={() => activityTapped("activity_help")}
-          />
-          <ActivityButton
-            icon="online"
-            text="Tomar clase online"
-            onClick={() => activityTapped("activity_online")}
-          />
+        <div className="grid grid-cols-3">
+          {activites.map(act => (
+            <ActivityButton
+              key={act.id}
+              icon={act.icon}
+              text={act.description}
+              points={act.points}
+              onClick={() => activityTapped(act)}
+            ></ActivityButton>
+          ))}
         </div>
       </div>
       <Modal isShowing={isShowing} hide={toggle}>
