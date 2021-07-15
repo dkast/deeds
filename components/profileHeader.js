@@ -11,7 +11,7 @@ const ProfileHeader = props => {
               <Avatar
                 imgFile={user.avatar}
                 bgColor={user.color}
-                size="xl"
+                size="lg"
                 className="mx-auto border-4 border-indigo-100"
               />
               <div className="text-indigo-100 text-2xl font-bold mt-2">
