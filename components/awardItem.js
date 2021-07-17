@@ -2,10 +2,10 @@ const AwardItem = props => {
   const { dataItem } = props;
   return (
     <div className="overflow-hidden shadow rounded-lg mx-3">
-      <div className="relative bg-gradient-to-t from-indigo-400 via-pink-500 to-red-500">
+      <div className="relative bg-gradient-to-t from-indigo-400 via-pink-500 to-orange-500 p-1">
         <img
           src={dataItem.imageUrl}
-          className="h-48 w-full object-cover mix-blend-overlay"
+          className="h-48 w-full object-cover rounded"
         />
         <div className="text-white bg-orange-500 absolute top-0 right-0 rounded-bl-lg p-2 flex items-center">
           <img

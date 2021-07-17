@@ -6,16 +6,18 @@ const ProfileHeader = props => {
     <>
       {user && (
         <>
-          <div className="hero -mt-20 -mx-2 pt-4 pb-16">
-            <div className="text-center mt-10">
-              <Avatar
-                imgFile={user.avatar}
-                bgColor={user.color}
-                size="lg"
-                className="mx-auto border-4 border-indigo-100"
-              />
-              <div className="text-indigo-100 text-2xl font-bold mt-2">
-                {user.name}
+          <div className="hero -mt-20 -mx-2 pt-4">
+            <div className="text-center mt-10 relative h-48">
+              <div className="p-4 absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-black">
+                <Avatar
+                  imgFile={user.avatar}
+                  bgColor={user.color}
+                  size="xl"
+                  className="mx-auto border-4 border-indigo-100"
+                />
+                <span className="text-indigo-100 text-2xl font-bold mt-2 inline-block">
+                  {user.name}
+                </span>
               </div>
             </div>
           </div>
@@ -25,9 +27,6 @@ const ProfileHeader = props => {
               {user.points} puntos
             </span>
           </div>
-          {/* <div className="p-4">
-            <h2 className="text-2xl text-gray-400">Actividad</h2>
-          </div> */}
         </>
       )}
       <style jsx>
