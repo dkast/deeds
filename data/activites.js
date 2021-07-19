@@ -33,12 +33,18 @@ export default [
     id: "activity_excercise",
     icon: "triangle.svg",
     description: "Hacer ejercicio 30 min",
-    points: 50
+    points: 70
   },
   {
     id: "activity_swim",
     icon: "swimmer.svg",
     description: "Nadar 30 min",
     points: 30
+  },
+  {
+    id: "activity_diet",
+    icon: "diet.svg",
+    description: "Comer saludable",
+    points: 50
   }
 ];
