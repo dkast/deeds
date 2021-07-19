@@ -24,7 +24,6 @@ const Compose = () => {
     firebaseApp.auth().signOut();
   };
   const { isShowing, toggle } = useModal();
-  console.dir(activites);
 
   const activityTapped = actType => {
     let userPoints = user.points;

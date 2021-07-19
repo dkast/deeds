@@ -41,7 +41,7 @@ const Deed = props => {
         break;
       case "activity_diet":
         message = "comió saludable.";
-        icon = "swimmer.svg";
+        icon = "diet.svg";
         break;
       default:
         break;
