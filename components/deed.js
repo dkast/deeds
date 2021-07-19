@@ -13,23 +13,35 @@ const Deed = props => {
     switch (dataItem.actType) {
       case "activity_tbrush":
         message = "se cepilló los dientes.";
-        icon = "toothbrush.svg";
+        icon = "dental-care.svg";
         break;
       case "activity_bath":
         message = "se dió un baño.";
-        icon = "bathtub.svg";
+        icon = "rubber-duck.svg";
         break;
       case "activity_homework":
         message = "hizo la tarea.";
-        icon = "book.svg";
+        icon = "backpack.svg";
         break;
       case "activity_help":
         message = "ayudó en la casa.";
-        icon = "hand.svg";
+        icon = "volunteer.svg";
         break;
       case "activity_online":
         message = "tomó clase online.";
-        icon = "online.svg";
+        icon = "laptop.svg";
+        break;
+      case "activity_excercise":
+        message = "hizo ejercicio.";
+        icon = "triangle.svg";
+        break;
+      case "activity_swim":
+        message = "hizo natación.";
+        icon = "swimmer.svg";
+        break;
+      case "activity_diet":
+        message = "comió saludable.";
+        icon = "swimmer.svg";
         break;
       default:
         break;
@@ -41,18 +53,18 @@ const Deed = props => {
   return (
     <div className="bg-white dark:bg-black mb-3 border-b border-gray-200 dark:border-gray-800 px-4">
       <div className="flex pt-2 pb-6">
-        <div className="relative">
+        <div className="relative bg-gradient-to-br from-indigo-500 to-pink-300 rounded-full">
           <img
             src={`/static/images/${icon}`}
             className="w-12 h-12"
             alt="icon"
           />
-          <img
+          {/* <img
             src={`/static/images/avatars/${dataItem.userData.avatar}`}
-            className="rounded-full h-8 w-8 object-cover absolute bottom-0 right-0 border-2 border-white"
+            className="rounded-full h-6 w-6 object-cover absolute bottom-0 right-0 border-white"
             alt="Avatar"
             style={{ backgroundColor: `#${dataItem.userData.color}` }}
-          />
+          /> */}
         </div>
         <div className="ml-4 flex flex-col flex-grow">
           <div className="flex justify-between flex-grow items-baseline">

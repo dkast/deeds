@@ -6,20 +6,25 @@ const Avatar = props => {
     className,
     ...restProps
   } = props;
-  let sizeClass;
+  let width;
+  let height;
 
   switch (size) {
     case "sm":
-      sizeClass = "10";
+      width = "w-10";
+      height = "h-10";
       break;
     case "md":
-      sizeClass = "12";
+      width = "w-12";
+      height = "h-12";
       break;
     case "lg":
-      sizeClass = "16";
+      width = "w-16";
+      height = "h-16";
       break;
     case "xl":
-      sizeClass = "20";
+      width = "w-28";
+      height = "h-28";
     default:
       break;
   }
@@ -27,7 +32,7 @@ const Avatar = props => {
   if (imgFile) {
     return (
       <img
-        className={`h-${sizeClass} w-${sizeClass} object-cover rounded-full shadow z-10 ${className}`}
+        className={`${height} ${width} object-cover rounded-full shadow z-10 ${className}`}
         src={`/static/images/avatars/${imgFile}`}
         style={{ backgroundColor: `#${bgColor}` }}
         alt="avatar"
@@ -37,7 +42,7 @@ const Avatar = props => {
 
   return (
     <div
-      className={`h-${sizeClass} w-${sizeClass} bg-gray-300 animate-pulse object-cover rounded-full shadow z-10 ${className}`}
+      className={`${height} ${width} bg-gray-300 animate-pulse object-cover rounded-full shadow z-10 ${className}`}
     ></div>
   );
 };
