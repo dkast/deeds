@@ -31,12 +31,16 @@ const Avatar = props => {
 
   if (imgFile) {
     return (
-      <img
-        className={`${height} ${width} object-cover rounded-full shadow z-10 ${className}`}
-        src={`/static/images/avatars/${imgFile}`}
-        style={{ backgroundColor: `#${bgColor}` }}
-        alt="avatar"
-      />
+      <div
+        className={`${height} ${width} rounded-full shadow z-10 ${className}`}
+      >
+        <img
+          className="object-cover overflow-hidden rounded-full"
+          src={`/static/images/avatars/${imgFile}`}
+          style={{ backgroundColor: `#${bgColor}` }}
+          alt="avatar"
+        />
+      </div>
     );
   }
 
