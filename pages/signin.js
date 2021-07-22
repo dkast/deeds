@@ -3,7 +3,7 @@ import "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
-import { Lock } from "react-feather";
+import { Lock, ArrowRight } from "react-feather";
 
 import { useFirebaseApp } from "../firebase";
 import Head from "../components/head";
@@ -24,7 +24,7 @@ const SignIn = () => {
     }
   );
 
-  const login = user => {
+  const onSelectUser = user => {
     // firebaseApp
     //   .auth()
     //   .signInWithEmailAndPassword(user.email, "fortnite")
@@ -40,21 +40,25 @@ const SignIn = () => {
     }
   };
 
+  const onLogin = () => {
+    alert("Entra");
+  };
+
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-white dark:bg-black">
       <Head title="Selecciona perfil" />
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <Loader />}
       {values && (
-        <div className="flex flex-row items-center justify-center space-x-2">
+        <div className="flex flex-row items-center justify-center space-x-4">
           {!selectedUser &&
             values.map(user => (
               <div
                 className="text-center cursor-pointer"
                 key={user.name}
-                onClick={() => login(user)}
+                onClick={() => onSelectUser(user)}
               >
-                <Avatar size="xl" imgFile={user.avatar} bgColor={user.color} />
+                <Avatar size="lg" imgFile={user.avatar} bgColor={user.color} />
                 <div className="text-indigo-500 font-bold m-4">{user.name}</div>
               </div>
             ))}
@@ -62,7 +66,7 @@ const SignIn = () => {
             <div
               className="text-center cursor-pointer"
               key={selectedUser.name}
-              onClick={() => login(selectedUser)}
+              onClick={() => onSelectUser(selectedUser)}
             >
               <Avatar
                 size="xl"
@@ -78,19 +82,26 @@ const SignIn = () => {
       )}
       {selectedUser && (
         <>
-          <div className="mt-1 relative rounded-md shadow-sm">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Lock></Lock>
+          <div className="mt-1 mb-4 relative rounded-md shadow-sm">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
+              <Lock className="h-4 w-4"></Lock>
             </div>
             <input
               type="password"
               name="password"
               id="password"
               className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
-              placeholder="contraseña"
+              placeholder="Contraseña"
             />
           </div>
-          <button>Entrar</button>
+          <button
+            type="button"
+            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+            onClick={() => onLogin()}
+          >
+            Entrar
+            <ArrowRight className="ml-2"></ArrowRight>
+          </button>
         </>
       )}
     </div>
