@@ -4,6 +4,7 @@ import React, { useContext, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
 import { Lock, ArrowRight } from "react-feather";
+import { AnimatePresence, motion } from "framer-motion";
 
 import { useFirebaseApp } from "../firebase";
 import Head from "../components/head";
@@ -16,6 +17,7 @@ const SignIn = () => {
   const router = useRouter();
   const [user, setUser] = useContext(UserContext);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [password, setPassword] = useState("");
 
   const [values, loading, error] = useCollectionData(
     firebaseApp.firestore().collection("users"),
@@ -25,14 +27,6 @@ const SignIn = () => {
   );
 
   const onSelectUser = user => {
-    // firebaseApp
-    //   .auth()
-    //   .signInWithEmailAndPassword(user.email, "fortnite")
-    //   .then(() => {
-    //     setUser(user);
-    //     router.push("/");
-    //   });
-
     if (!selectedUser) {
       setSelectedUser(user);
     } else {
@@ -41,7 +35,16 @@ const SignIn = () => {
   };
 
   const onLogin = () => {
-    alert("Entra");
+    firebaseApp
+      .auth()
+      .signInWithEmailAndPassword(selectedUser.email, password)
+      .then(() => {
+        setUser(user);
+        router.push("/");
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
@@ -80,30 +83,41 @@ const SignIn = () => {
           )}
         </div>
       )}
-      {selectedUser && (
-        <>
-          <div className="mt-1 mb-4 relative rounded-md shadow-sm">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500">
-              <Lock className="h-4 w-4"></Lock>
-            </div>
-            <input
-              type="password"
-              name="password"
-              id="password"
-              className="focus:ring-indigo-500 focus:border-indigo-500 block w-full pl-10 sm:text-sm border-gray-300 rounded-md"
-              placeholder="Contraseña"
-            />
-          </div>
-          <button
-            type="button"
-            className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            onClick={() => onLogin()}
+      <AnimatePresence>
+        {selectedUser && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ type: "spring", damping: 15, stiffness: 200 }}
+            className="flex flex-col items-center"
           >
-            Entrar
-            <ArrowRight className="ml-2"></ArrowRight>
-          </button>
-        </>
-      )}
+            <div className="mt-1 mb-4 relative rounded-md shadow-sm">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 dark:text-gray-700">
+                <Lock className="h-4 w-4"></Lock>
+              </div>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                className="focus:ring-indigo-500 focus:border-indigo-500 block w-full 
+              pl-10 sm:text-sm border-gray-300 rounded-md dark:text-white dark:border-gray-800 dark:bg-gray-900 dark:placeholder-gray-700"
+                placeholder="Contraseña"
+                value={password}
+                onChange={event => setPassword(event.target.value)}
+              />
+            </div>
+            <button
+              type="button"
+              className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              onClick={() => onLogin()}
+            >
+              Entrar
+              <ArrowRight className="ml-2"></ArrowRight>
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
