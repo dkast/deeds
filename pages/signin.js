@@ -3,7 +3,7 @@ import "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
-import { Lock, ArrowRight } from "react-feather";
+import { Lock, ArrowRight, Loader as Spinner } from "react-feather";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 
 import { useFirebaseApp } from "../firebase";
@@ -18,6 +18,8 @@ const SignIn = () => {
   const [user, setUser] = useContext(UserContext);
   const [selectedUser, setSelectedUser] = useState(null);
   const [password, setPassword] = useState("");
+  const [showError, setShowError] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const [values, loading, error] = useCollectionData(
     firebaseApp.firestore().collection("users"),
@@ -27,6 +29,7 @@ const SignIn = () => {
   );
 
   const onSelectUser = user => {
+    setShowError(false);
     if (!selectedUser) {
       setSelectedUser(user);
     } else {
@@ -35,14 +38,19 @@ const SignIn = () => {
   };
 
   const onLogin = () => {
+    setSubmitted(true);
+    setShowError(false);
     firebaseApp
       .auth()
       .signInWithEmailAndPassword(selectedUser.email, password)
       .then(() => {
         setUser(user);
+        setSubmitted(false);
         router.push("/");
       })
       .catch(err => {
+        setShowError(true);
+        setSubmitted(false);
         console.log(err);
       });
   };
@@ -51,7 +59,7 @@ const SignIn = () => {
     visible: {
       y: 0,
       opacity: 1,
-      transition: { type: "tween", delay: 0.2 }
+      transition: { ease: "anticipate", delay: 0.2 }
     },
     hidden: {
       y: 100,
@@ -60,7 +68,7 @@ const SignIn = () => {
     exit: {
       opacity: 0,
       y: 50,
-      transition: { type: "tween", duration: 0.2 }
+      transition: { ease: "easeOut", duration: 0.2 }
     }
   };
 
@@ -133,14 +141,24 @@ const SignIn = () => {
                   onChange={event => setPassword(event.target.value)}
                 />
               </div>
-              <button
+              <motion.button
                 type="button"
+                whileTap={{ scale: 0.95 }}
                 className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 onClick={() => onLogin()}
               >
                 Entrar
-                <ArrowRight className="ml-2"></ArrowRight>
-              </button>
+                {!submitted ? (
+                  <ArrowRight className="ml-2"></ArrowRight>
+                ) : (
+                  <Spinner className="animate-spin ml-2"></Spinner>
+                )}
+              </motion.button>
+              {showError && (
+                <motion.span className="text-red-500 mt-2">
+                  Oops! contraseña no es válida
+                </motion.span>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
