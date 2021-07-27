@@ -1,10 +1,11 @@
 import "firebase/auth";
 import "firebase/firestore";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { ChevronDown } from "react-feather";
 import { ArrowLeft } from "react-feather";
 import Link from "next/link";
 import Lottie from "react-lottie";
+import { Dialog } from "@headlessui/react";
 
 import { useFirebaseApp } from "../firebase";
 import Avatar from "../components/avatar";
@@ -24,35 +25,40 @@ const Compose = () => {
     firebaseApp.auth().signOut();
   };
   const { isShowing, toggle } = useModal();
+  const [isOpen, setIsOpen] = useState(false);
 
   const activityTapped = actType => {
     let userPoints = user.points;
-    firebaseApp
-      .firestore()
-      .collection("deeds")
-      .add({
-        actType: actType.id,
-        timestamp: new Date(),
-        points: actType.points,
-        userRef: firebaseApp.firestore().doc(`users/${user.email}`)
-      })
-      .then(ref => {
-        firebaseApp
-          .firestore()
-          .doc(`users/${user.email}`)
-          .update({
-            points: userPoints + actType.points
-          })
-          .then(() => {
-            toggle();
-          })
-          .catch(error => {
-            alert("ocurrio un error actualizadon al usuario");
-          });
-      })
-      .catch(error => {
-        alert("ocurrio un error grabando la actividad");
-      });
+    if (actType.requireDetails) {
+      setIsOpen(true);
+    }
+    // firebaseApp
+    //   .firestore()
+    //   .collection("deeds")
+    //   .add({
+    //     actType: actType.id,
+    //     timestamp: new Date(),
+    //     points: actType.points,
+    //     userRef: firebaseApp.firestore().doc(`users/${user.email}`)
+    //   })
+    //   .then(ref => {
+    //     firebaseApp
+    //       .firestore()
+    //       .doc(`users/${user.email}`)
+    //       .update({
+    //         points: userPoints + actType.points
+    //       })
+    //       .then(() => {
+    //         toggle();
+    //       })
+    //       .catch(error => {
+    //         alert("ocurrio un error actualizadon al usuario");
+    //       });
+    //   })
+    //   .catch(error => {
+    //     alert("ocurrio un error grabando la actividad");
+    //   });
+    // toggle();
   };
 
   return (
@@ -114,6 +120,24 @@ const Compose = () => {
           </a>
         </Link>
       </Modal>
+      <Dialog
+        open={isOpen}
+        onClose={() => setIsOpen(false)}
+        className="fixed z-10 inset-0 overflow-y-auto"
+      >
+        <div className="flex flex-col items-center justify-center min-h-screen">
+          <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
+          <Dialog.Title>Deberes</Dialog.Title>
+          <Dialog.Description>Dinos un poco más</Dialog.Description>
+          <textarea
+            id="about"
+            name="about"
+            rows={3}
+            className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
+            defaultValue={""}
+          />
+        </div>
+      </Dialog>
     </Auth>
   );
 };
