@@ -1,11 +1,11 @@
 import "firebase/auth";
 import "firebase/firestore";
 import React, { useContext, useState } from "react";
-import { ChevronDown } from "react-feather";
-import { ArrowLeft } from "react-feather";
+import { ChevronDown, ArrowLeft } from "react-feather";
 import Link from "next/link";
 import Lottie from "react-lottie";
 import { Dialog } from "@headlessui/react";
+import { motion } from "framer-motion";
 
 import { useFirebaseApp } from "../firebase";
 import Avatar from "../components/avatar";
@@ -26,39 +26,42 @@ const Compose = () => {
   };
   const { isShowing, toggle } = useModal();
   const [isOpen, setIsOpen] = useState(false);
+  const [comment, setComment] = useState("");
 
   const activityTapped = actType => {
     let userPoints = user.points;
-    if (actType.requireDetails) {
+    if (actType.requireComments && comment.length === 0) {
       setIsOpen(true);
+    } else {
+      firebaseApp
+        .firestore()
+        .collection("deeds")
+        .add({
+          actType: actType.id,
+          timestamp: new Date(),
+          points: actType.points,
+          userRef: firebaseApp.firestore().doc(`users/${user.email}`),
+          comment: comment
+        })
+        .then(ref => {
+          firebaseApp
+            .firestore()
+            .doc(`users/${user.email}`)
+            .update({
+              points: userPoints + actType.points
+            })
+            .then(() => {
+              toggle();
+            })
+            .catch(error => {
+              alert("ocurrio un error actualizadon al usuario");
+            });
+        })
+        .catch(error => {
+          alert("ocurrio un error grabando la actividad");
+        });
+      toggle();
     }
-    // firebaseApp
-    //   .firestore()
-    //   .collection("deeds")
-    //   .add({
-    //     actType: actType.id,
-    //     timestamp: new Date(),
-    //     points: actType.points,
-    //     userRef: firebaseApp.firestore().doc(`users/${user.email}`)
-    //   })
-    //   .then(ref => {
-    //     firebaseApp
-    //       .firestore()
-    //       .doc(`users/${user.email}`)
-    //       .update({
-    //         points: userPoints + actType.points
-    //       })
-    //       .then(() => {
-    //         toggle();
-    //       })
-    //       .catch(error => {
-    //         alert("ocurrio un error actualizadon al usuario");
-    //       });
-    //   })
-    //   .catch(error => {
-    //     alert("ocurrio un error grabando la actividad");
-    //   });
-    // toggle();
   };
 
   return (
@@ -127,15 +130,39 @@ const Compose = () => {
       >
         <div className="flex flex-col items-center justify-center min-h-screen">
           <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
-          <Dialog.Title>Deberes</Dialog.Title>
-          <Dialog.Description>Dinos un poco más</Dialog.Description>
-          <textarea
-            id="about"
-            name="about"
-            rows={3}
-            className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md"
-            defaultValue={""}
-          />
+          <div
+            className="inline-block w-5/6 max-w-md px-4 py-4 mx-8 overflow-hidden text-left align-middle z-30 
+          bg-white dark:bg-gray-900 shadow-xl rounded-2xl"
+          >
+            <Dialog.Title
+              as="h3"
+              className="text-lg font-bold leading-6 text-gray-900 dark:text-gray-100"
+            >
+              ¡Muy bien!
+            </Dialog.Title>
+            <Dialog.Description className="my-4 text-gray-700 dark:text-gray-400">
+              Dinos un poco más de lo que hiciste
+            </Dialog.Description>
+            <div className="flex flex-col gap-2">
+              <textarea
+                id="about"
+                name="about"
+                rows={3}
+                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md dark:text-white dark:border-gray-800 dark:bg-gray-900 dark:placeholder-gray-700"
+                value={comment}
+                onChange={event => setComment(event.target.value)}
+              />
+              <motion.button
+                type="button"
+                whileTap={{ scale: 0.95 }}
+                disabled={comment.length === 0}
+                className="text-center self-center mt-3 px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                onClick={() => onAddAward()}
+              >
+                Aceptar
+              </motion.button>
+            </div>
+          </div>
         </div>
       </Dialog>
     </Auth>
