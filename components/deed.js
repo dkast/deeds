@@ -52,22 +52,18 @@ const Deed = props => {
 
   return (
     <div className="bg-white dark:bg-black mb-3 border-b border-gray-200 dark:border-gray-800 px-4">
-      <div className="flex pt-2 pb-6">
-        <div className="relative bg-gradient-to-br from-indigo-500 to-pink-300 rounded-full">
-          <img
-            src={`/static/images/${icon}`}
-            className="w-12 h-12"
-            alt="icon"
-          />
-          {/* <img
-            src={`/static/images/avatars/${dataItem.userData.avatar}`}
-            className="rounded-full h-6 w-6 object-cover absolute bottom-0 right-0 border-white"
-            alt="Avatar"
-            style={{ backgroundColor: `#${dataItem.userData.color}` }}
-          /> */}
+      <div className="grid grid-cols-5 py-2">
+        <div>
+          <div className="relative w-12 h-12 bg-gradient-to-br from-indigo-500 to-pink-300 rounded-full">
+            <img
+              src={`/static/images/${icon}`}
+              className="w-12 h-12"
+              alt="icon"
+            />
+          </div>
         </div>
-        <div className="ml-4 flex flex-col flex-grow">
-          <div className="flex justify-between flex-grow items-baseline">
+        <div className="col-span-3 flex flex-col flex-grow">
+          <div className="flex justify-between items-baseline">
             <div>
               <span className="text-gray-900 dark:text-indigo-500 font-semibold">
                 {dataItem.userData.name}
@@ -96,8 +92,10 @@ const Deed = props => {
             </span>
           </div>
         </div>
+        <span className="col-span-4 col-start-2 py-2 dark:text-white">
+          {dataItem.comment}
+        </span>
       </div>
-      {/* <div className="rounded-bl-lg rounded-br-lg bg-indigo-600 h-1"></div> */}
     </div>
   );
 };
