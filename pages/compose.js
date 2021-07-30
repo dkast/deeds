@@ -1,10 +1,11 @@
 import "firebase/auth";
 import "firebase/firestore";
-import React, { useContext } from "react";
-import { ChevronDown } from "react-feather";
-import { ArrowLeft } from "react-feather";
+import React, { useContext, useState } from "react";
+import { ChevronDown, ArrowLeft } from "react-feather";
 import Link from "next/link";
 import Lottie from "react-lottie";
+import { Dialog } from "@headlessui/react";
+import { motion, AnimatePresence } from "framer-motion";
 
 import { useFirebaseApp } from "../firebase";
 import Avatar from "../components/avatar";
@@ -24,35 +25,68 @@ const Compose = () => {
     firebaseApp.auth().signOut();
   };
   const { isShowing, toggle } = useModal();
+  const [isOpen, setIsOpen] = useState(false);
+  const [comment, setComment] = useState("");
+  const [activity, setActivity] = useState(null);
 
-  const activityTapped = actType => {
+  const variants = {
+    visible: {
+      scale: 1,
+      opacity: 1,
+      transition: { ease: "anticipate", delay: 0.2 }
+    },
+    hidden: {
+      scale: 0.95,
+      opacity: 0
+    },
+    exit: {
+      scale: 0.95,
+      opacity: 0,
+      transition: { ease: "easeOut", duration: 0.2 }
+    }
+  };
+
+  const onActivityTap = actType => {
     let userPoints = user.points;
-    firebaseApp
-      .firestore()
-      .collection("deeds")
-      .add({
-        actType: actType.id,
-        timestamp: new Date(),
-        points: actType.points,
-        userRef: firebaseApp.firestore().doc(`users/${user.email}`)
-      })
-      .then(ref => {
-        firebaseApp
-          .firestore()
-          .doc(`users/${user.email}`)
-          .update({
-            points: userPoints + actType.points
-          })
-          .then(() => {
-            toggle();
-          })
-          .catch(error => {
-            alert("ocurrio un error actualizadon al usuario");
-          });
-      })
-      .catch(error => {
-        alert("ocurrio un error grabando la actividad");
-      });
+    if (actType.requireComments && comment.length === 0) {
+      setIsOpen(true);
+      setActivity(actType);
+    } else {
+      setIsOpen(false);
+      firebaseApp
+        .firestore()
+        .collection("deeds")
+        .add({
+          actType: actType.id,
+          timestamp: new Date(),
+          points: actType.points,
+          userRef: firebaseApp.firestore().doc(`users/${user.email}`),
+          comment: comment
+        })
+        .then(ref => {
+          firebaseApp
+            .firestore()
+            .doc(`users/${user.email}`)
+            .update({
+              points: userPoints + actType.points
+            })
+            .then(() => {
+              setComment("");
+              toggle();
+            })
+            .catch(error => {
+              alert("ocurrio un error actualizadon al usuario");
+            });
+        })
+        .catch(error => {
+          alert("ocurrio un error grabando la actividad");
+        });
+    }
+  };
+
+  const onCloseComments = () => {
+    setIsOpen(false);
+    setComment("");
   };
 
   return (
@@ -86,7 +120,7 @@ const Compose = () => {
               icon={act.icon}
               text={act.description}
               points={act.points}
-              onClick={() => activityTapped(act)}
+              onClick={() => onActivityTap(act)}
             ></ActivityButton>
           ))}
         </div>
@@ -114,6 +148,59 @@ const Compose = () => {
           </a>
         </Link>
       </Modal>
+
+      <AnimatePresence>
+        {isOpen && (
+          <Dialog
+            variants={variants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            static
+            as={motion.div}
+            open={isOpen}
+            onClose={() => onCloseComments()}
+            className="fixed z-10 inset-0 overflow-y-auto"
+          >
+            <div className="flex flex-col items-center justify-center min-h-screen">
+              <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
+              <div
+                className="inline-block w-5/6 max-w-md px-4 py-4 mx-8 overflow-hidden text-left align-middle z-30 
+              bg-white dark:bg-gray-900 shadow-xl rounded-2xl"
+              >
+                <Dialog.Title
+                  as="h3"
+                  className="text-lg font-bold leading-6 text-gray-900 dark:text-gray-100"
+                >
+                  ¡Muy bien!
+                </Dialog.Title>
+                <Dialog.Description className="my-4 text-gray-700 dark:text-gray-400">
+                  Dinos un poco más de lo que hiciste
+                </Dialog.Description>
+                <div className="flex flex-col gap-2">
+                  <textarea
+                    id="about"
+                    name="about"
+                    rows={3}
+                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md dark:text-white dark:border-gray-800 dark:bg-gray-900 dark:placeholder-gray-700"
+                    value={comment}
+                    onChange={event => setComment(event.target.value)}
+                  />
+                  <motion.button
+                    type="button"
+                    whileTap={{ scale: 0.95 }}
+                    disabled={comment.length === 0}
+                    className="text-center self-center mt-3 px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    onClick={() => onActivityTap(activity)}
+                  >
+                    Aceptar
+                  </motion.button>
+                </div>
+              </div>
+            </div>
+          </Dialog>
+        )}
+      </AnimatePresence>
     </Auth>
   );
 };
