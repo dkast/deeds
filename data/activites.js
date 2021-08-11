@@ -37,7 +37,7 @@ export default [
     id: "activity_excercise",
     icon: "triangle.svg",
     description: "Hacer ejercicio 30 min",
-    points: 70,
+    points: 60,
     requireComments: true
   },
   {
