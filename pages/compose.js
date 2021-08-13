@@ -75,11 +75,11 @@ const Compose = () => {
               toggle();
             })
             .catch(error => {
-              alert("ocurrio un error actualizadon al usuario");
+              alert("Ocurrio un error actualizadon al usuario");
             });
         })
         .catch(error => {
-          alert("ocurrio un error grabando la actividad");
+          alert("Ocurrio un error grabando la actividad");
         });
     }
   };
