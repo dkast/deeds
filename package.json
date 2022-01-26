@@ -6,22 +6,22 @@
     "start": "next start"
   },
   "dependencies": {
-    "@headlessui/react": "^1.4.0",
-    "@tailwindcss/forms": "^0.3.3",
-    "autoprefixer": "^10.3.1",
-    "date-fns": "^2.23.0",
+    "@headlessui/react": "^1.4.3",
+    "@tailwindcss/forms": "^0.4.0",
+    "autoprefixer": "^10.4.2",
+    "date-fns": "^2.28.0",
     "firebase": "^8.8.1",
-    "framer-motion": "^4.1.17",
-    "next": "^11.1.0",
-    "postcss": "^8.3.6",
+    "framer-motion": "^6.2.3",
+    "next": "^12.0.8",
+    "postcss": "^8.4.5",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-feather": "^2.0.9",
     "react-firebase-hooks": "^3.0.4",
-    "react-hook-form": "^7.12.2",
+    "react-hook-form": "^7.25.1",
     "react-lottie": "^1.2.3",
     "react-spinners-kit": "^1.9.1",
-    "styled-components": "^5.3.0",
-    "tailwindcss": "^2.2.7"
+    "styled-components": "^5.3.3",
+    "tailwindcss": "^3.0.16"
   }
 }
