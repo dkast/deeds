@@ -10,7 +10,7 @@ const NavBar = props => {
   const { user, loading, userError } = useUser();
 
   const activeClassname =
-    "border-b-2 border-indigo-600 dark:border-indigo-500 text-indigo-600 dark:text-indigo-500 bg-gradient-to-t from-indigo-100 dark:from-indigo-900 to-transparent";
+    "border-b-2 border-indigo-600 dark:border-indigo-500 text-indigo-600 dark:text-indigo-500 bg-gradient-to-t from-indigo-100 dark:from-indigo-900 to-white dark:to-black";
   return (
     <nav className="fixed top-0 z-30 w-full bg-white shadow dark:bg-black">
       <div className="mx-auto w-full md:w-1/2">
