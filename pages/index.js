@@ -17,7 +17,7 @@ const Home = () => (
       </Container>
       <div className="fixed bottom-0 mb-10 w-full text-center">
         <Link href="/compose">
-          <a className="inline-block h-16 w-16 rounded-full bg-gradient-to-br from-indigo-600 to-fuchsia-500 p-4 text-white shadow-lg shadow-fuchsia-500/50 hover:bg-indigo-800">
+          <a className="inline-block h-16 w-16 rounded-full bg-gradient-to-br from-indigo-600 to-fuchsia-500 p-4 text-white shadow-md shadow-fuchsia-500/50 hover:bg-indigo-800">
             <Plus size={32} />
           </a>
         </Link>

@@ -31,12 +31,12 @@ const AwardList = () => {
           <AwardItem key={doc.id} dataItem={doc.data()}></AwardItem>
         ))}
       {user?.role === "parent" && (
-        <div className="w-full flex justify-center">
+        <div className="flex w-full justify-center">
           <Link href="/prize/edit">
             <motion.button
               type="button"
               whileTap={{ scale: 0.95 }}
-              className="inline-flex text-center self-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              className="inline-flex self-center rounded-full border border-transparent bg-indigo-600 px-6 py-3 text-center text-base font-medium text-white shadow-md shadow-indigo-400/50 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:shadow-indigo-700/50"
             >
               Agregar Premio
             </motion.button>

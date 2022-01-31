@@ -73,7 +73,7 @@ const SignIn = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-white dark:bg-black">
+    <div className="flex h-screen flex-col items-center justify-center bg-white dark:bg-black">
       <Head title="Selecciona perfil" />
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <Loader />}
@@ -83,7 +83,7 @@ const SignIn = () => {
             {!selectedUser &&
               values.map(user => (
                 <motion.div
-                  className="text-center cursor-pointer"
+                  className="cursor-pointer text-center"
                   key={user.name}
                   layoutId={user.name}
                   onClick={() => onSelectUser(user)}
@@ -93,14 +93,14 @@ const SignIn = () => {
                     imgFile={user.avatar}
                     bgColor={user.color}
                   />
-                  <div className="text-indigo-500 font-bold m-4">
+                  <div className="m-4 font-bold text-indigo-500">
                     {user.name}
                   </div>
                 </motion.div>
               ))}
             {selectedUser && (
               <motion.div
-                className="text-center cursor-pointer"
+                className="cursor-pointer text-center"
                 key={selectedUser.name}
                 layoutId={selectedUser.name}
                 onClick={() => onSelectUser(selectedUser)}
@@ -110,7 +110,7 @@ const SignIn = () => {
                   imgFile={selectedUser.avatar}
                   bgColor={selectedUser.color}
                 />
-                <div className="text-indigo-500 font-bold m-4">
+                <div className="m-4 font-bold text-indigo-500">
                   {selectedUser.name}
                 </div>
               </motion.div>
@@ -126,16 +126,16 @@ const SignIn = () => {
               exit="exit"
               className="flex flex-col items-center"
             >
-              <div className="mt-1 mb-4 relative rounded-md shadow-sm">
-                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-500 dark:text-gray-700">
+              <div className="relative mt-1 mb-4 rounded-md shadow-sm">
+                <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500 dark:text-gray-700">
                   <Lock className="h-4 w-4"></Lock>
                 </div>
                 <input
                   type="password"
                   name="password"
                   id="password"
-                  className="focus:ring-indigo-500 focus:border-indigo-500 block w-full 
-              pl-10 sm:text-sm border-gray-300 rounded-md dark:text-white dark:border-gray-800 dark:bg-gray-900 dark:placeholder-gray-700"
+                  className="block w-full rounded-md border-gray-300 
+              pl-10 focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:placeholder-gray-700 sm:text-sm"
                   placeholder="Contraseña"
                   value={password}
                   onChange={event => setPassword(event.target.value)}
@@ -144,18 +144,18 @@ const SignIn = () => {
               <motion.button
                 type="button"
                 whileTap={{ scale: 0.95 }}
-                className="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                className="inline-flex items-center rounded-full border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-md shadow-indigo-400/50 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:shadow-indigo-700/50"
                 onClick={() => onLogin()}
               >
                 Entrar
                 {!submitted ? (
                   <ArrowRight className="ml-2"></ArrowRight>
                 ) : (
-                  <Spinner className="animate-spin ml-2"></Spinner>
+                  <Spinner className="ml-2 animate-spin"></Spinner>
                 )}
               </motion.button>
               {showError && (
-                <motion.span className="text-red-500 mt-2">
+                <motion.span className="mt-2 text-red-500">
                   Oops! contraseña no es válida
                 </motion.span>
               )}

@@ -51,29 +51,29 @@ const Deed = props => {
   }, [dataItem]);
 
   return (
-    <div className="bg-white dark:bg-black mb-3 border-b border-gray-200 dark:border-gray-800 px-4">
+    <div className="mb-3 bg-white px-4 dark:bg-black">
       <div className="grid grid-cols-5 py-2">
         <div>
-          <div className="relative w-12 h-12 bg-gradient-to-br from-indigo-500 to-pink-300 rounded-full">
+          <div className="relative h-12 w-12 rounded-full bg-gradient-to-br from-indigo-500 to-pink-300">
             <img
               src={`/static/images/${icon}`}
-              className="w-12 h-12"
+              className="h-12 w-12"
               alt="icon"
             />
           </div>
         </div>
-        <div className="col-span-3 flex flex-col flex-grow">
-          <div className="flex justify-between items-baseline">
+        <div className="col-span-3 flex flex-grow flex-col">
+          <div className="flex items-baseline justify-between">
             <div>
-              <span className="text-gray-900 dark:text-indigo-500 font-semibold">
+              <span className="font-semibold text-gray-900 dark:text-indigo-500">
                 {dataItem.userData.name}
               </span>
-              <span className="text-gray-600 dark:text-gray-300 ml-1">
+              <span className="ml-1 text-gray-600 dark:text-gray-300">
                 {message}
               </span>
             </div>
           </div>
-          <span className="text-gray-400 text-sm">
+          <span className="text-sm text-gray-400">
             Hace{" "}
             {formatDistanceToNowStrict(dataItem.timestamp.toDate(), {
               locale: esLocale
@@ -81,13 +81,13 @@ const Deed = props => {
           </span>
         </div>
         <div className="flex justify-end">
-          <div className="flex items-center justify-center my-2 bg-orange-100 dark:bg-orange-800 dark:bg-opacity-20 w-16 rounded-full px-3 py-0.5">
+          <div className="my-2 flex w-16 items-center justify-center rounded-full bg-orange-100 px-3 py-0.5 dark:bg-orange-800 dark:bg-opacity-20">
             <img
               src="/static/images/gem.svg"
-              className="w-4 h-4 inline"
+              className="inline h-4 w-4"
               alt="coin"
             />
-            <span className="ml-2 tracking-tight font-bold text-orange-600">
+            <span className="ml-2 font-bold tracking-tight text-orange-600">
               {dataItem.points}
             </span>
           </div>
