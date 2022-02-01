@@ -1,5 +1,6 @@
 import { CheckCircle, Award, Smile, ArrowLeft } from "react-feather";
 import Link from "next/link";
+import Icon from "supercons";
 
 import ActiveLink from "./activeLink";
 import Avatar from "./avatar";
@@ -35,17 +36,20 @@ const NavBar = props => {
           <div className="flex flex-row text-gray-600">
             <ActiveLink href="/" activeClassName={activeClassname}>
               <a className="flex-1 border-0 pb-2">
-                <CheckCircle className="mx-auto" />
+                {/* <CheckCircle className="mx-auto" /> */}
+                <Icon glyph="checkmark" size={32} className="mx-auto" />
               </a>
             </ActiveLink>
             <ActiveLink href="/awards" activeClassName={activeClassname}>
               <a className="flex-1 border-0 pb-2">
-                <Award className="mx-auto" />
+                {/* <Award className="mx-auto" /> */}
+                <Icon glyph="sticker" size={32} className="mx-auto" />
               </a>
             </ActiveLink>
             <ActiveLink href="/profile" activeClassName={activeClassname}>
               <a className="flex-1 border-0 pb-2">
-                <Smile className="mx-auto" />
+                {/* <Smile className="mx-auto" /> */}
+                <Icon glyph="sam" size={32} className="mx-auto" />
               </a>
             </ActiveLink>
           </div>
