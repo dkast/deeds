@@ -3,8 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
 
 import { useFirebaseApp } from "../firebase";
-import Deed from "../components/deed";
-import Loader from "../components/loader";
+import Deed from "@components/deed";
+import Loader from "@components/loader";
 
 const Timeline = () => {
   const firebaseApp = useFirebaseApp();

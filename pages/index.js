@@ -1,11 +1,11 @@
 import Link from "next/link";
 import { Plus } from "react-feather";
 
-import NavBar from "../components/navbar";
-import Container from "../components/container";
-import Timeline from "../components/timeline";
-import Head from "../components/head";
-import Auth from "../components/auth";
+import NavBar from "@components/navbar";
+import Container from "@components/container";
+import Timeline from "@components/timeline";
+import Head from "@components/head";
+import Auth from "@components/auth";
 
 const Home = () => (
   <Auth>

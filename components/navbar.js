@@ -4,7 +4,7 @@ import Icon from "supercons";
 
 import ActiveLink from "./activeLink";
 import Avatar from "./avatar";
-import useUser from "../hooks/useUser";
+import useUser from "@hooks/useUser";
 
 const NavBar = props => {
   const { title, showAvatar = true, ...restProps } = props;
@@ -46,12 +46,25 @@ const NavBar = props => {
                 <Icon glyph="sticker" size={32} className="mx-auto" />
               </a>
             </ActiveLink>
-            <ActiveLink href="/profile" activeClassName={activeClassname}>
-              <a className="flex-1 border-0 pb-2">
-                {/* <Smile className="mx-auto" /> */}
-                <Icon glyph="sam" size={32} className="mx-auto" />
-              </a>
-            </ActiveLink>
+            {user?.role !== "parent" && (
+              <ActiveLink href="/profile" activeClassName={activeClassname}>
+                <a className="flex-1 border-0 pb-2">
+                  {/* <Smile className="mx-auto" /> */}
+                  <Icon glyph="sam" size={32} className="mx-auto" />
+                </a>
+              </ActiveLink>
+            )}
+            {user?.role === "parent" && (
+              <ActiveLink
+                href="/admin/family"
+                activeClassName={activeClassname}
+              >
+                <a className="flex-1 border-0 pb-2">
+                  {/* <Smile className="mx-auto" /> */}
+                  <Icon glyph="settings" size={32} className="mx-auto" />
+                </a>
+              </ActiveLink>
+            )}
           </div>
         )}
       </div>

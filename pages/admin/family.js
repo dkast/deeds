@@ -2,23 +2,20 @@ import NavBar from "@components/navbar";
 import Container from "@components/container";
 import Head from "@components/head";
 import Auth from "@components/auth";
-import ProfileHeader from "@components/profileHeader";
 import useUser from "@hooks/useUser";
 
-const Profile = () => {
+const Family = () => {
   const { user, loading, userError } = useUser();
 
   return (
     <Auth>
       <div className="flex h-screen flex-col">
-        <Head title="Mi Perfil" />
-        <NavBar title="Mi Perfil" showAvatar={false} />
-        <Container>
-          <ProfileHeader user={user} />
-        </Container>
+        <Head title="Admin" />
+        <NavBar title="Admin" />
+        <Container></Container>
       </div>
     </Auth>
   );
 };
 
-export default Profile;
+export default Family;

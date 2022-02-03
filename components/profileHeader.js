@@ -1,4 +1,4 @@
-import Avatar from "../components/avatar";
+import Avatar from "@components/avatar";
 
 const ProfileHeader = props => {
   const { user, ...restProps } = props;

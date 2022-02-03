@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 
 import { useFirebaseApp } from "../firebase";
-import Loader from "../components/loader";
+import Loader from "@components/loader";
 
 const Auth = ({ children }) => {
   const firebaseApp = useFirebaseApp();
@@ -14,7 +14,7 @@ const Auth = ({ children }) => {
 
   if (initialising) {
     return (
-      <div className="h-screen flex items-center justify-center">
+      <div className="flex h-screen items-center justify-center">
         <Loader />
       </div>
     );
@@ -33,7 +33,7 @@ const Auth = ({ children }) => {
   } else {
     router.push("/signin");
     return (
-      <div className="h-screen flex items-center justify-center">
+      <div className="flex h-screen items-center justify-center">
         <Loader />
       </div>
     );

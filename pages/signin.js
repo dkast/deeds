@@ -7,9 +7,9 @@ import { Lock, ArrowRight, Loader as Spinner } from "react-feather";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 
 import { useFirebaseApp } from "../firebase";
-import Head from "../components/head";
-import Avatar from "../components/avatar";
-import Loader from "../components/loader";
+import Head from "@components/head";
+import Avatar from "@components/avatar";
+import Loader from "@components/loader";
 import { UserContext } from "../context/userContext";
 
 const SignIn = () => {

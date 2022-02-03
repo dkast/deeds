@@ -3,9 +3,9 @@ const { useFirebaseApp } = require("../firebase");
 import { motion } from "framer-motion";
 import Link from "next/link";
 
-import Loader from "../components/loader";
+import Loader from "@components/loader";
 import AwardItem from "./awardItem";
-import useUser from "../hooks/useUser";
+import useUser from "@hooks/useUser";
 
 const AwardList = () => {
   const firebaseApp = useFirebaseApp();
