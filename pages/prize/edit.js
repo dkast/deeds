@@ -5,8 +5,8 @@ import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 
 import { useFirebaseApp } from "../../firebase";
-import Auth from "../@components/auth";
-import Head from "../@components/head";
+import Auth from "@components/auth";
+import Head from "@components/head";
 
 const EditPrize = () => {
   const firebaseApp = useFirebaseApp();
