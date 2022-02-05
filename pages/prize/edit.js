@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
 
-import { useFirebaseApp } from "../../firebase";
+import { useFirebaseApp } from "@db";
 import Auth from "@components/auth";
 import Head from "@components/head";
 

@@ -1,13 +1,19 @@
-import "firebase/auth";
-import "firebase/firestore";
-import React, { useContext, useState } from "react";
+import { getAuth, signOut } from "firebase/auth";
+import {
+  getFirestore,
+  setDoc,
+  doc,
+  updateDoc,
+  collection
+} from "firebase/firestore";
+import React, { useState } from "react";
 import { ChevronDown, ArrowLeft } from "react-feather";
 import Link from "next/link";
 import Lottie from "react-lottie";
 import { Dialog } from "@headlessui/react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { useFirebaseApp } from "../firebase";
+import { useFirebaseApp } from "@db/index";
 import Avatar from "@components/avatar";
 import ActivityButton from "@components/activityButton";
 import Head from "@components/head";
@@ -20,14 +26,16 @@ import activites from "../data/activites";
 
 const Compose = () => {
   const firebaseApp = useFirebaseApp();
-  const { user, loading, userError } = useUser();
-  const signOut = () => {
-    firebaseApp.auth().signOut();
-  };
-  const { isShowing, toggle } = useModal();
+  const auth = getAuth(firebaseApp);
+  const [user, loading, userError] = useUser();
+  const [isShowing, toggle] = useModal();
   const [isOpen, setIsOpen] = useState(false);
   const [comment, setComment] = useState("");
   const [activity, setActivity] = useState(null);
+
+  const logOut = () => {
+    signOut(auth);
+  };
 
   const variants = {
     visible: {
@@ -53,30 +61,52 @@ const Compose = () => {
       setActivity(actType);
     } else {
       setIsOpen(false);
-      firebaseApp
-        .firestore()
-        .collection("deeds")
-        .add({
-          actType: actType.id,
-          timestamp: new Date(),
-          points: actType.points,
-          userRef: firebaseApp.firestore().doc(`users/${user.email}`),
-          comment: comment
-        })
-        .then(ref => {
-          firebaseApp
-            .firestore()
-            .doc(`users/${user.email}`)
-            .update({
-              points: userPoints + actType.points
-            })
-            .then(() => {
-              setComment("");
-              toggle();
-            })
-            .catch(error => {
-              alert("Ocurrio un error actualizadon al usuario");
-            });
+      // firebaseApp
+      //   .firestore()
+      //   .collection("deeds")
+      //   .add({
+      //     actType: actType.id,
+      //     timestamp: new Date(),
+      //     points: actType.points,
+      //     userRef: firebaseApp.firestore().doc(`users/${user.email}`),
+      //     comment: comment
+      //   })
+      //   .then(ref => {
+      //     firebaseApp
+      //       .firestore()
+      //       .doc(`users/${user.email}`)
+      //       .update({
+      //         points: userPoints + actType.points
+      //       })
+      //       .then(() => {
+      //         setComment("");
+      //         toggle();
+      //       })
+      //       .catch(error => {
+      //         alert("Ocurrio un error actualizadon al usuario");
+      //       });
+      //   })
+      //   .catch(error => {
+      //     alert("Ocurrio un error grabando la actividad");
+      //   });
+      setDoc(collection(getFirestore(firebaseApp), "deeds"), {
+        actType: actType.id,
+        timestamp: new Date(),
+        points: actType.points,
+        userRef: doc(getFirestore(firebaseApp), "users", user.email),
+        comment: comment
+      })
+        .then(() => {
+          // updateDoc(doc(getFirestore(firebaseApp), "users", user?.email), {
+          //   points: userPoints + actType.points
+          // })
+          //   .then(() => {
+          //     setComment("");
+          //     toggle();
+          //   })
+          //   .catch(error => {
+          //     alert("Ocurrio un error actualizadon al usuario");
+          //   });
         })
         .catch(error => {
           alert("Ocurrio un error grabando la actividad");
@@ -100,7 +130,7 @@ const Compose = () => {
         </Link>
         <div
           className="mt-3 flex cursor-pointer items-center"
-          onClick={() => signOut()}
+          onClick={() => logOut()}
         >
           {user && <Avatar imgFile={user.avatar} bgColor={user.color} />}
           <div className="-ml-3 rounded-tr-full rounded-br-full bg-gray-200 py-2 pl-3 pr-2 dark:bg-gray-800 dark:text-gray-300">

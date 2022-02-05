@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { Lock, ArrowRight, Loader as Spinner } from "react-feather";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 
-import { useFirebaseApp } from "../firebase";
+import { useFirebaseApp } from "@db";
 import Head from "@components/head";
 import Avatar from "@components/avatar";
 import Loader from "@components/loader";

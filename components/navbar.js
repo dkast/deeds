@@ -1,14 +1,14 @@
-import { CheckCircle, Award, Smile, ArrowLeft } from "react-feather";
+import { ArrowLeft } from "react-feather";
 import Link from "next/link";
 import Icon from "supercons";
 
-import ActiveLink from "./activeLink";
-import Avatar from "./avatar";
+import ActiveLink from "@components/activeLink";
+import Avatar from "@components/avatar";
 import useUser from "@hooks/useUser";
 
 const NavBar = props => {
   const { title, showAvatar = true, ...restProps } = props;
-  const { user, loading, userError } = useUser();
+  const [user, loading, userError] = useUser();
 
   const activeClassname =
     "border-b-2 border-indigo-600 dark:border-indigo-500 text-indigo-600 dark:text-indigo-500 bg-gradient-to-t from-indigo-100 dark:from-indigo-900 to-white dark:to-black";
@@ -36,20 +36,17 @@ const NavBar = props => {
           <div className="flex flex-row text-gray-600">
             <ActiveLink href="/" activeClassName={activeClassname}>
               <a className="flex-1 border-0 pb-2">
-                {/* <CheckCircle className="mx-auto" /> */}
                 <Icon glyph="checkmark" size={32} className="mx-auto" />
               </a>
             </ActiveLink>
             <ActiveLink href="/awards" activeClassName={activeClassname}>
               <a className="flex-1 border-0 pb-2">
-                {/* <Award className="mx-auto" /> */}
                 <Icon glyph="sticker" size={32} className="mx-auto" />
               </a>
             </ActiveLink>
             {user?.role !== "parent" && (
               <ActiveLink href="/profile" activeClassName={activeClassname}>
                 <a className="flex-1 border-0 pb-2">
-                  {/* <Smile className="mx-auto" /> */}
                   <Icon glyph="sam" size={32} className="mx-auto" />
                 </a>
               </ActiveLink>
@@ -60,7 +57,6 @@ const NavBar = props => {
                 activeClassName={activeClassname}
               >
                 <a className="flex-1 border-0 pb-2">
-                  {/* <Smile className="mx-auto" /> */}
                   <Icon glyph="settings" size={32} className="mx-auto" />
                 </a>
               </ActiveLink>

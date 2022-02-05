@@ -1,5 +1,6 @@
-const { useCollectionOnce } = require("react-firebase-hooks/firestore");
-const { useFirebaseApp } = require("../firebase");
+import { getFirestore, collection } from "firebase/firestore";
+import { useCollectionOnce } from "react-firebase-hooks/firestore";
+import { useFirebaseApp } from "@db/index";
 import { motion } from "framer-motion";
 import Link from "next/link";
 
@@ -9,14 +10,22 @@ import useUser from "@hooks/useUser";
 
 const AwardList = () => {
   const firebaseApp = useFirebaseApp();
-  const { user, loadingUser, userError } = useUser();
+  const [user, loadingUser, userError] = useUser();
 
+  // const [value, loading, error] = useCollectionOnce(
+  //   firebaseApp.firestore().collection("awards"),
+  //   {
+  //     snapshotListenOptions: { includeMetadataChanges: true }
+  //   }
+  // );
   const [value, loading, error] = useCollectionOnce(
-    firebaseApp.firestore().collection("awards"),
+    collection(getFirestore(firebaseApp), "awards"),
     {
       snapshotListenOptions: { includeMetadataChanges: true }
     }
   );
+
+  console.dir(user);
 
   return (
     <div className="space-y-4">
@@ -32,7 +41,7 @@ const AwardList = () => {
         ))}
       {user?.role === "parent" && (
         <div className="flex w-full justify-center">
-          <Link href="/prize/edit">
+          <Link href="/prize/edit" passHref>
             <motion.button
               type="button"
               whileTap={{ scale: 0.95 }}

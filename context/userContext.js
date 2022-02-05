@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 
-import { useFirebaseApp } from "../firebase";
+import { useFirebaseApp } from "@db";
 
 const UserContext = React.createContext([{}, () => {}]);
 

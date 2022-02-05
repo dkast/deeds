@@ -1,20 +1,37 @@
-import "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  query,
+  orderBy,
+  limit,
+  getDoc
+} from "firebase/firestore";
 import React, { useEffect, useState } from "react";
 import { useCollectionOnce } from "react-firebase-hooks/firestore";
 
-import { useFirebaseApp } from "../firebase";
+import { useFirebaseApp } from "@db/index";
 import Deed from "@components/deed";
 import Loader from "@components/loader";
 
 const Timeline = () => {
   const firebaseApp = useFirebaseApp();
 
+  // const [value, loading, error] = useCollectionOnce(
+  //   firebaseApp
+  //     .firestore()
+  //     .collection("deeds")
+  //     .orderBy("timestamp", "desc")
+  //     .limit(10),
+  //   {
+  //     snapshotListenOptions: { includeMetadataChanges: true }
+  //   }
+  // );
   const [value, loading, error] = useCollectionOnce(
-    firebaseApp
-      .firestore()
-      .collection("deeds")
-      .orderBy("timestamp", "desc")
-      .limit(10),
+    query(
+      collection(getFirestore(firebaseApp), "deeds"),
+      orderBy("timestamp", "desc"),
+      limit(10)
+    ),
     {
       snapshotListenOptions: { includeMetadataChanges: true }
     }
@@ -27,11 +44,16 @@ const Timeline = () => {
       setData({ items: [], isFetching: true });
       let items = value.docs.map(async doc => {
         let dataItem = doc.data();
+        // if (dataItem.userRef) {
+        //   let response = await dataItem.userRef.get();
+        //   dataItem.userData = response.data();
+        //   return dataItem;
+        // }
         if (dataItem.userRef) {
-          let response = await dataItem.userRef.get();
+          let response = await getDoc(dataItem.userRef);
           dataItem.userData = response.data();
-          return dataItem;
         }
+        return dataItem;
       });
 
       const dataItems = await Promise.all(items);

@@ -1,16 +1,16 @@
-import "firebase/auth";
-import "firebase/firestore";
-import React, { useContext } from "react";
+import { getAuth } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useRouter } from "next/router";
 
-import { useFirebaseApp } from "../firebase";
+import { useFirebaseApp } from "@db/index";
 import Loader from "@components/loader";
 
 const Auth = ({ children }) => {
   const firebaseApp = useFirebaseApp();
-  const [currentUser, initialising, error] = useAuthState(firebaseApp.auth());
+  const auth = getAuth(firebaseApp);
   const router = useRouter();
+
+  const [currentUser, initialising, error] = useAuthState(auth);
 
   if (initialising) {
     return (
