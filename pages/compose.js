@@ -1,10 +1,11 @@
 import { getAuth, signOut } from "firebase/auth";
 import {
   getFirestore,
-  setDoc,
+  addDoc,
   doc,
   updateDoc,
-  collection
+  collection,
+  increment
 } from "firebase/firestore";
 import React, { useState } from "react";
 import { ChevronDown, ArrowLeft } from "react-feather";
@@ -89,7 +90,7 @@ const Compose = () => {
       //   .catch(error => {
       //     alert("Ocurrio un error grabando la actividad");
       //   });
-      setDoc(collection(getFirestore(firebaseApp), "deeds"), {
+      addDoc(collection(getFirestore(firebaseApp), "deeds"), {
         actType: actType.id,
         timestamp: new Date(),
         points: actType.points,
@@ -97,16 +98,16 @@ const Compose = () => {
         comment: comment
       })
         .then(() => {
-          // updateDoc(doc(getFirestore(firebaseApp), "users", user?.email), {
-          //   points: userPoints + actType.points
-          // })
-          //   .then(() => {
-          //     setComment("");
-          //     toggle();
-          //   })
-          //   .catch(error => {
-          //     alert("Ocurrio un error actualizadon al usuario");
-          //   });
+          updateDoc(doc(getFirestore(firebaseApp), "users", user?.email), {
+            points: increment(actType.points)
+          })
+            .then(() => {
+              setComment("");
+              toggle();
+            })
+            .catch(error => {
+              alert("Ocurrio un error actualizadon al usuario");
+            });
         })
         .catch(error => {
           alert("Ocurrio un error grabando la actividad");
