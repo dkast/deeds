@@ -62,34 +62,6 @@ const Compose = () => {
       setActivity(actType);
     } else {
       setIsOpen(false);
-      // firebaseApp
-      //   .firestore()
-      //   .collection("deeds")
-      //   .add({
-      //     actType: actType.id,
-      //     timestamp: new Date(),
-      //     points: actType.points,
-      //     userRef: firebaseApp.firestore().doc(`users/${user.email}`),
-      //     comment: comment
-      //   })
-      //   .then(ref => {
-      //     firebaseApp
-      //       .firestore()
-      //       .doc(`users/${user.email}`)
-      //       .update({
-      //         points: userPoints + actType.points
-      //       })
-      //       .then(() => {
-      //         setComment("");
-      //         toggle();
-      //       })
-      //       .catch(error => {
-      //         alert("Ocurrio un error actualizadon al usuario");
-      //       });
-      //   })
-      //   .catch(error => {
-      //     alert("Ocurrio un error grabando la actividad");
-      //   });
       addDoc(collection(getFirestore(firebaseApp), "deeds"), {
         actType: actType.id,
         timestamp: new Date(),

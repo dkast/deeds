@@ -10,15 +10,11 @@ const useUser = () => {
   const auth = getAuth(firebaseApp);
 
   const [currentUser, initialising, authError] = useAuthState(auth);
-  // const [user, loading, error] = useDocumentDataOnce(
-  //   currentUser
-  //     ? firebaseApp.firestore().doc(`users/${currentUser.email}`)
-  //     : null
-  // );
   const [user, loading, error] = useDocumentDataOnce(
-    doc(getFirestore(firebaseApp), "users", currentUser?.email)
+    currentUser
+      ? doc(getFirestore(firebaseApp), "users", currentUser?.email)
+      : null
   );
-
   return [user, loading, error];
 };
 

@@ -1,12 +1,12 @@
-import "firebase/auth";
-import "firebase/firestore";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { collection, getFirestore } from "firebase/firestore";
 import React, { useContext, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
 import { Lock, ArrowRight, Loader as Spinner } from "react-feather";
 import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
 
-import { useFirebaseApp } from "@db";
+import { useFirebaseApp } from "@db/index";
 import Head from "@components/head";
 import Avatar from "@components/avatar";
 import Loader from "@components/loader";
@@ -14,6 +14,7 @@ import { UserContext } from "../context/userContext";
 
 const SignIn = () => {
   const firebaseApp = useFirebaseApp();
+  const auth = getAuth(firebaseApp);
   const router = useRouter();
   const [user, setUser] = useContext(UserContext);
   const [selectedUser, setSelectedUser] = useState(null);
@@ -21,8 +22,8 @@ const SignIn = () => {
   const [showError, setShowError] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
-  const [values, loading, error] = useCollectionData(
-    firebaseApp.firestore().collection("users"),
+  const [data, loading, error] = useCollectionData(
+    collection(getFirestore(firebaseApp), "users"),
     {
       snapshotListenOptions: { includeMetadataChanges: true }
     }
@@ -40,9 +41,20 @@ const SignIn = () => {
   const onLogin = () => {
     setSubmitted(true);
     setShowError(false);
-    firebaseApp
-      .auth()
-      .signInWithEmailAndPassword(selectedUser.email, password)
+    // firebaseApp
+    //   .auth()
+    //   .signInWithEmailAndPassword(selectedUser.email, password)
+    //   .then(() => {
+    //     setUser(user);
+    //     setSubmitted(false);
+    //     router.push("/");
+    //   })
+    //   .catch(err => {
+    //     setShowError(true);
+    //     setSubmitted(false);
+    //     console.log(err);
+    //   });
+    signInWithEmailAndPassword(auth, selectedUser.email, password)
       .then(() => {
         setUser(user);
         setSubmitted(false);
@@ -78,10 +90,10 @@ const SignIn = () => {
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <Loader />}
       <AnimateSharedLayout>
-        {values && (
+        {data && (
           <div className="flex flex-row items-center justify-center space-x-4">
             {!selectedUser &&
-              values.map(user => (
+              data.map(user => (
                 <motion.div
                   className="cursor-pointer text-center"
                   key={user.name}

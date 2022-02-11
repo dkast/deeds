@@ -1,7 +1,6 @@
 import Avatar from "@components/avatar";
 
-const ProfileHeader = props => {
-  const { user, ...restProps } = props;
+const ProfileHeader = ({ user }) => {
   return (
     <>
       {user && (

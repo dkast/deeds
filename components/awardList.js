@@ -11,14 +11,7 @@ import useUser from "@hooks/useUser";
 const AwardList = () => {
   const firebaseApp = useFirebaseApp();
   const [user, loadingUser, userError] = useUser();
-
-  // const [value, loading, error] = useCollectionOnce(
-  //   firebaseApp.firestore().collection("awards"),
-  //   {
-  //     snapshotListenOptions: { includeMetadataChanges: true }
-  //   }
-  // );
-  const [value, loading, error] = useCollectionOnce(
+  const [data, loading, error] = useCollectionOnce(
     collection(getFirestore(firebaseApp), "awards"),
     {
       snapshotListenOptions: { includeMetadataChanges: true }
@@ -35,8 +28,8 @@ const AwardList = () => {
         </div>
       )}
       {loading && <Loader />}
-      {value &&
-        value.docs.map(doc => (
+      {data &&
+        data.docs.map(doc => (
           <AwardItem key={doc.id} dataItem={doc.data()}></AwardItem>
         ))}
       {user?.role === "parent" && (
