@@ -41,19 +41,6 @@ const SignIn = () => {
   const onLogin = () => {
     setSubmitted(true);
     setShowError(false);
-    // firebaseApp
-    //   .auth()
-    //   .signInWithEmailAndPassword(selectedUser.email, password)
-    //   .then(() => {
-    //     setUser(user);
-    //     setSubmitted(false);
-    //     router.push("/");
-    //   })
-    //   .catch(err => {
-    //     setShowError(true);
-    //     setSubmitted(false);
-    //     console.log(err);
-    //   });
     signInWithEmailAndPassword(auth, selectedUser.email, password)
       .then(() => {
         setUser(user);
