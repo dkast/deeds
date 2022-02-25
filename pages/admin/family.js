@@ -27,17 +27,25 @@ const Family = () => {
           {error && <strong>Error: {JSON.stringify(error)}</strong>}
           {loading && <Loader />}
           {data && (
-            <div className="flex flex-col space-y-2">
+            <div className="m-4 flex flex-col space-y-4">
               {data.map(user => (
-                <div key={user.name}>
+                <div
+                  key={user.name}
+                  className="flex flex-row items-center rounded-lg border border-gray-100 p-2 shadow shadow-indigo-50"
+                >
                   <Avatar
                     size="lg"
                     imgFile={user.avatar}
                     bgColor={user.color}
                   />
-                  <span className="text-gray-600 dark:text-gray-300">
-                    {user.name}
-                  </span>
+                  <div className="ml-4 flex flex-col">
+                    <span className="font-semibold text-gray-900 dark:text-indigo-500">
+                      {user.name}
+                    </span>
+                    <span className="text-gray-600 dark:text-gray-300">
+                      {user.points} puntos
+                    </span>
+                  </div>
                 </div>
               ))}
             </div>

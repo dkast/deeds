@@ -15,17 +15,6 @@ import Loader from "@components/loader";
 
 const Timeline = () => {
   const firebaseApp = useFirebaseApp();
-
-  // const [value, loading, error] = useCollectionOnce(
-  //   firebaseApp
-  //     .firestore()
-  //     .collection("deeds")
-  //     .orderBy("timestamp", "desc")
-  //     .limit(10),
-  //   {
-  //     snapshotListenOptions: { includeMetadataChanges: true }
-  //   }
-  // );
   const [value, loading, error] = useCollectionOnce(
     query(
       collection(getFirestore(firebaseApp), "deeds"),
@@ -44,11 +33,6 @@ const Timeline = () => {
       setData({ items: [], isFetching: true });
       let items = value.docs.map(async doc => {
         let dataItem = doc.data();
-        // if (dataItem.userRef) {
-        //   let response = await dataItem.userRef.get();
-        //   dataItem.userData = response.data();
-        //   return dataItem;
-        // }
         if (dataItem.userRef) {
           let response = await getDoc(dataItem.userRef);
           dataItem.userData = response.data();
