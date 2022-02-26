@@ -47,7 +47,7 @@ const Family = () => {
                         {user.points} puntos
                       </span>
                     </div>
-                    <Menu.Button className="flex grow justify-end text-gray-500 dark:text-gray-400">
+                    <Menu.Button className="flex grow justify-end text-gray-500 focus:outline-none dark:text-gray-400">
                       <MoreVertical></MoreVertical>
                     </Menu.Button>
                   </div>
