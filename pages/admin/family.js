@@ -1,5 +1,11 @@
 import { Fragment, useState } from "react";
-import { collection, getFirestore } from "firebase/firestore";
+import {
+  collection,
+  getFirestore,
+  updateDoc,
+  increment,
+  doc
+} from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { Menu, Transition, Dialog } from "@headlessui/react";
 import { MoreVertical } from "react-feather";
@@ -17,6 +23,8 @@ import { useFirebaseApp } from "@db/firebaseApp";
 const Family = () => {
   const firebaseApp = useFirebaseApp();
   const [open, setOpen] = useState(false);
+  const [action, setAction] = useState("");
+  const [selectedUser, setSelectedUser] = useState(null);
   const { register, handleSubmit } = useForm();
   const [data, loading, error] = useCollectionData(
     collection(getFirestore(firebaseApp), "users"),
@@ -42,13 +50,32 @@ const Family = () => {
     }
   };
 
-  const onMenuTap = () => {
+  const onMenuAdd = user => {
+    setAction("ADD");
+    setSelectedUser(user);
+    setOpen(true);
+  };
+
+  const onMenuSub = user => {
+    setAction("SUB");
+    setSelectedUser(user);
     setOpen(true);
   };
 
   const onSubmit = data => {
-    setOpen(false);
-    console.log("submit");
+    if (action === "SUB") {
+      data.points = "-" + data.points;
+    }
+
+    updateDoc(doc(getFirestore(firebaseApp), "users", selectedUser?.email), {
+      points: increment(data.points)
+    })
+      .then(() => {
+        setOpen(false);
+      })
+      .catch(error => {
+        alert("Ocurrio un error actualizadon al usuario");
+      });
   };
 
   return (
@@ -100,7 +127,7 @@ const Family = () => {
                                   ? "bg-violet-500 text-white"
                                   : "text-gray-900 dark:text-gray-400"
                               } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                              onClick={() => onMenuTap()}
+                              onClick={() => onMenuAdd(user)}
                             >
                               Agregar puntos
                             </button>
@@ -116,7 +143,7 @@ const Family = () => {
                                   ? "bg-violet-500 text-white"
                                   : "text-gray-900 dark:text-gray-400"
                               } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
-                              onClick={() => onMenuTap()}
+                              onClick={() => onMenuSub(user)}
                             >
                               Restar puntos
                             </button>
