@@ -42,7 +42,7 @@ const Compose = () => {
     visible: {
       scale: 1,
       opacity: 1,
-      transition: { ease: "anticipate", delay: 0.2 }
+      transition: { ease: "anticipate", delay: 0.3 }
     },
     hidden: {
       scale: 0.95,
@@ -128,6 +128,7 @@ const Compose = () => {
           ))}
         </div>
       </div>
+
       <Modal isShowing={isShowing} hide={toggle}>
         <Lottie
           options={{

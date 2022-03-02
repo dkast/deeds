@@ -16,16 +16,6 @@ const EditPrize = () => {
 
   const onSubmit = data => {
     console.log(data);
-    // firebaseApp
-    //   .firestore()
-    //   .collection("awards")
-    //   .add(data)
-    //   .then(ref => {
-    //     router.push("/awards");
-    //   })
-    //   .catch(error => {
-    //     alert("Ocurrio un error al guardar premio");
-    //   });
     addDoc(collection(getFirestore(firebaseApp), "awards"), data)
       .then(() => {
         router.push("/awards");
