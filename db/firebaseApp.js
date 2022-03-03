@@ -1,4 +1,5 @@
-import firebase from "firebase/app";
+// import firebase from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import * as React from "react";
 
 const FirebaseAppContext = React.createContext(undefined);
@@ -7,14 +8,7 @@ export function FirebaseAppProvider(props) {
   const { firebaseConfig } = props;
   let { firebaseApp } = props;
   firebaseApp =
-    firebaseApp ||
-    React.useMemo(() => {
-      if (!firebase.apps.length) {
-        firebase.initializeApp(firebaseConfig);
-      }
-
-      return firebase;
-    }, [firebaseConfig]);
+    getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 
   return <FirebaseAppContext.Provider value={firebaseApp} {...props} />;
 }

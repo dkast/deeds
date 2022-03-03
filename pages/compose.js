@@ -1,39 +1,48 @@
-import "firebase/auth";
-import "firebase/firestore";
-import React, { useContext, useState } from "react";
+import { getAuth, signOut } from "firebase/auth";
+import {
+  getFirestore,
+  addDoc,
+  doc,
+  updateDoc,
+  collection,
+  increment
+} from "firebase/firestore";
+import React, { useState } from "react";
 import { ChevronDown, ArrowLeft } from "react-feather";
 import Link from "next/link";
 import Lottie from "react-lottie";
 import { Dialog } from "@headlessui/react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import { useFirebaseApp } from "../firebase";
-import Avatar from "../components/avatar";
-import ActivityButton from "../components/activityButton";
-import Head from "../components/head";
-import Auth from "../components/auth";
-import useUser from "../hooks/useUser";
-import useModal from "../hooks/useModal";
-import Modal from "../components/modal";
+import { useFirebaseApp } from "@db/index";
+import Avatar from "@components/avatar";
+import ActivityButton from "@components/activityButton";
+import Head from "@components/head";
+import Auth from "@components/auth";
+import useUser from "@hooks/useUser";
+import useModal from "@hooks/useModal";
+import Modal from "@components/modal";
 import * as animationData from "../public/static/assets/stone.json";
 import activites from "../data/activites";
 
 const Compose = () => {
   const firebaseApp = useFirebaseApp();
-  const { user, loading, userError } = useUser();
-  const signOut = () => {
-    firebaseApp.auth().signOut();
-  };
-  const { isShowing, toggle } = useModal();
+  const auth = getAuth(firebaseApp);
+  const [user, loading, userError] = useUser();
+  const [isShowing, toggle] = useModal();
   const [isOpen, setIsOpen] = useState(false);
   const [comment, setComment] = useState("");
   const [activity, setActivity] = useState(null);
+
+  const logOut = () => {
+    signOut(auth);
+  };
 
   const variants = {
     visible: {
       scale: 1,
       opacity: 1,
-      transition: { ease: "anticipate", delay: 0.2 }
+      transition: { ease: "anticipate", delay: 0.3 }
     },
     hidden: {
       scale: 0.95,
@@ -53,23 +62,17 @@ const Compose = () => {
       setActivity(actType);
     } else {
       setIsOpen(false);
-      firebaseApp
-        .firestore()
-        .collection("deeds")
-        .add({
-          actType: actType.id,
-          timestamp: new Date(),
-          points: actType.points,
-          userRef: firebaseApp.firestore().doc(`users/${user.email}`),
-          comment: comment
-        })
-        .then(ref => {
-          firebaseApp
-            .firestore()
-            .doc(`users/${user.email}`)
-            .update({
-              points: userPoints + actType.points
-            })
+      addDoc(collection(getFirestore(firebaseApp), "deeds"), {
+        actType: actType.id,
+        timestamp: new Date(),
+        points: actType.points,
+        userRef: doc(getFirestore(firebaseApp), "users", user.email),
+        comment: comment
+      })
+        .then(() => {
+          updateDoc(doc(getFirestore(firebaseApp), "users", user?.email), {
+            points: increment(actType.points)
+          })
             .then(() => {
               setComment("");
               toggle();
@@ -91,25 +94,25 @@ const Compose = () => {
 
   return (
     <Auth>
-      <div className="h-screen flex flex-col items-center bg-white dark:bg-black">
+      <div className="flex h-screen flex-col items-center bg-white dark:bg-black">
         <Head title="Agrega una actividad" />
         <Link href="/">
-          <a className="self-start p-4 pt-6 -mb-16 text-indigo-600">
+          <a className="-mb-16 self-start p-4 pt-6 text-indigo-600">
             <ArrowLeft />
           </a>
         </Link>
         <div
-          className="mt-3 flex items-center cursor-pointer"
-          onClick={() => signOut()}
+          className="mt-3 flex cursor-pointer items-center"
+          onClick={() => logOut()}
         >
           {user && <Avatar imgFile={user.avatar} bgColor={user.color} />}
-          <div className="-ml-3 pl-3 pr-2 py-2 bg-gray-200 dark:bg-gray-800 dark:text-gray-300 rounded-tr-full rounded-br-full">
+          <div className="-ml-3 rounded-tr-full rounded-br-full bg-gray-200 py-2 pl-3 pr-2 dark:bg-gray-800 dark:text-gray-300">
             <span className="mx-3 font-bold">{user ? user.name : ""}</span>
             <ChevronDown className="inline-block" />
           </div>
         </div>
         <div className="my-8">
-          <span className="text-indigo-600 text-2xl font-bold">
+          <span className="text-2xl font-bold text-indigo-600">
             ¿Qué tarea completaste?
           </span>
         </div>
@@ -125,6 +128,7 @@ const Compose = () => {
           ))}
         </div>
       </div>
+
       <Modal isShowing={isShowing} hide={toggle}>
         <Lottie
           options={{
@@ -136,14 +140,14 @@ const Compose = () => {
           width={300}
           height={200}
         ></Lottie>
-        <h3 className="text-center text-indigo-600 dark:text-indigo-500 text-2xl font-bold my-2">
+        <h3 className="my-2 text-center text-2xl font-bold text-indigo-600 dark:text-indigo-500">
           ¡Bien hecho!
         </h3>
-        <div className="text-center mb-4 dark:text-gray-400">
+        <div className="mb-4 text-center dark:text-gray-400">
           Sigue realizando tareas para acumular más puntos
         </div>
         <Link href="/">
-          <a className="bg-gradient-to-br from-indigo-600 to-purple-600 active:bg-indigo-800 text-white text-center block w-full px-4 py-2 rounded">
+          <a className="block w-full rounded bg-gradient-to-br from-indigo-600 to-purple-600 px-4 py-2 text-center text-white active:bg-indigo-800">
             Listo
           </a>
         </Link>
@@ -160,13 +164,13 @@ const Compose = () => {
             as={motion.div}
             open={isOpen}
             onClose={() => onCloseComments()}
-            className="fixed z-10 inset-0 overflow-y-auto"
+            className="fixed inset-0 z-10 overflow-y-auto"
           >
-            <div className="flex flex-col items-center justify-center min-h-screen">
+            <div className="flex min-h-screen flex-col items-center justify-center">
               <Dialog.Overlay className="fixed inset-0 bg-black opacity-50" />
               <div
-                className="inline-block w-5/6 max-w-md px-4 py-4 mx-8 overflow-hidden text-left align-middle z-30 
-              bg-white dark:bg-gray-900 shadow-xl rounded-2xl"
+                className="z-30 mx-8 inline-block w-5/6 max-w-md overflow-hidden rounded-2xl bg-white px-4 py-4 
+              text-left align-middle shadow-xl dark:bg-gray-900"
               >
                 <Dialog.Title
                   as="h3"
@@ -182,7 +186,7 @@ const Compose = () => {
                     id="about"
                     name="about"
                     rows={3}
-                    className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border border-gray-300 rounded-md dark:text-white dark:border-gray-800 dark:bg-gray-900 dark:placeholder-gray-700"
+                    className="block w-full rounded-md border border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 dark:border-gray-800 dark:bg-gray-900 dark:text-white dark:placeholder-gray-700 sm:text-sm"
                     value={comment}
                     onChange={event => setComment(event.target.value)}
                   />
@@ -190,7 +194,7 @@ const Compose = () => {
                     type="button"
                     whileTap={{ scale: 0.95 }}
                     disabled={comment.length === 0}
-                    className="text-center self-center mt-3 px-6 py-3 border border-transparent text-base font-medium rounded-full shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    className="mt-3 self-center rounded-full border border-transparent bg-indigo-600 px-6 py-3 text-center text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
                     onClick={() => onActivityTap(activity)}
                   >
                     Aceptar

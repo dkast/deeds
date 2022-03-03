@@ -1,22 +1,21 @@
-import "firebase/auth";
-import "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getFirestore, doc } from "firebase/firestore";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useDocumentDataOnce } from "react-firebase-hooks/firestore";
 
-import { useFirebaseApp } from "../firebase";
+import { useFirebaseApp } from "@db/index";
 
 const useUser = () => {
   const firebaseApp = useFirebaseApp();
-  const [currentUser, initialising, authError] = useAuthState(
-    firebaseApp.auth()
-  );
+  const auth = getAuth(firebaseApp);
+
+  const [currentUser, initialising, authError] = useAuthState(auth);
   const [user, loading, error] = useDocumentDataOnce(
     currentUser
-      ? firebaseApp.firestore().doc(`users/${currentUser.email}`)
+      ? doc(getFirestore(firebaseApp), "users", currentUser?.email)
       : null
   );
-
-  return { user, loading, error };
+  return [user, loading, error];
 };
 
 export default useUser;

@@ -1,29 +1,28 @@
-import Avatar from "../components/avatar";
+import Avatar from "@components/avatar";
 
-const ProfileHeader = props => {
-  const { user, ...restProps } = props;
+const ProfileHeader = ({ user }) => {
   return (
     <>
       {user && (
         <>
-          <div className="hero -mt-20 -mx-2 pt-4">
-            <div className="text-center mt-10 relative h-48">
-              <div className="p-4 absolute bottom-0 left-0 w-full h-full bg-gradient-to-t from-white dark:from-black">
+          <div className="hero -mx-2 -mt-20 pt-4">
+            <div className="relative mt-10 h-48 text-center">
+              <div className="absolute bottom-0 left-0 h-full w-full bg-gradient-to-t from-white dark:from-black">
                 <Avatar
                   imgFile={user.avatar}
                   bgColor={user.color}
                   size="xl"
                   className="mx-auto border-4 border-indigo-100"
                 />
-                <span className="text-indigo-500 dark:text-indigo-100 text-2xl font-bold mt-2 inline-block">
+                <span className="mt-2 inline-block text-2xl font-bold text-indigo-500 dark:text-indigo-100">
                   {user.name}
                 </span>
               </div>
             </div>
           </div>
-          <div className="flex items-center justify-center bg-gradient-to-br from-orange-400 to-red-500 dark:bg-gray-900 p-2 w-1/2 rounded-full shadow-lg mx-auto">
-            <img src="/static/images/gem.svg" className="w-6 h-6" alt="coin" />
-            <span className="ml-2 tracking-tight text-xl font-bold text-white">
+          <div className="mx-auto flex w-1/2 items-center justify-center rounded-full bg-gradient-to-b from-orange-400 to-red-500 p-2 shadow-lg shadow-red-500/50 dark:bg-gray-900">
+            <img src="/static/images/gem.svg" className="h-6 w-6" alt="coin" />
+            <span className="ml-2 text-xl font-bold tracking-tight text-white">
               {user.points} puntos
             </span>
           </div>

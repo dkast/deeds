@@ -1,7 +1,7 @@
 import React from "react";
 import App from "next/app";
 
-import { FirebaseAppProvider, config } from "../firebase";
+import { FirebaseAppProvider, config } from "@db/index";
 import "../public/static/css/style.css";
 
 class MyApp extends App {

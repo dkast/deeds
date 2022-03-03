@@ -8,7 +8,16 @@ const Head = props => (
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes"></meta>
-    <meta name="apple-mobile-web-app-status-bar-style" content="default"></meta>
+    <meta
+      name="theme-color"
+      content="#000000"
+      media="(prefers-color-scheme: dark)"
+    ></meta>
+    <meta
+      name="theme-color"
+      content="#ffffff"
+      media="(prefers-color-scheme: light)"
+    ></meta>
     <link rel="manifest" href="/static/manifest.json" />
     <link
       rel="apple-touch-icon"
