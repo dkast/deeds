@@ -33,6 +33,7 @@ const Compose = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [comment, setComment] = useState("");
   const [activity, setActivity] = useState(null);
+  const MotionActivityButton = motion(ActivityButton);
 
   const logOut = () => {
     signOut(auth);
@@ -52,6 +53,24 @@ const Compose = () => {
       scale: 0.95,
       opacity: 0,
       transition: { ease: "easeOut", duration: 0.2 }
+    }
+  };
+
+  const list = {
+    hidden: { opacity: 0, y: 100 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        staggerChildren: 0.03
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1
     }
   };
 
@@ -116,17 +135,23 @@ const Compose = () => {
             ¿Qué tarea completaste?
           </span>
         </div>
-        <div className="grid grid-cols-2">
+        <motion.ul
+          variants={list}
+          initial="hidden"
+          animate="show"
+          className="grid grid-cols-2"
+        >
           {activites.map(act => (
-            <ActivityButton
-              key={act.id}
-              icon={act.icon}
-              text={act.description}
-              points={act.points}
-              onClick={() => onActivityTap(act)}
-            ></ActivityButton>
+            <motion.li variants={item} key={act.id} whileTap={{ scale: 0.95 }}>
+              <ActivityButton
+                icon={act.icon}
+                text={act.description}
+                points={act.points}
+                onClick={() => onActivityTap(act)}
+              ></ActivityButton>
+            </motion.li>
           ))}
-        </div>
+        </motion.ul>
       </div>
 
       <Modal isShowing={isShowing} hide={toggle}>

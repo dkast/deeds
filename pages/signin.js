@@ -4,7 +4,7 @@ import React, { useContext, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useRouter } from "next/router";
 import { Lock, ArrowRight, Loader as Spinner } from "react-feather";
-import { AnimatePresence, AnimateSharedLayout, motion } from "framer-motion";
+import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 
 import { useFirebaseApp } from "@db/index";
 import Head from "@components/head";
@@ -76,7 +76,7 @@ const SignIn = () => {
       <Head title="Selecciona perfil" />
       {error && <strong>Error: {JSON.stringify(error)}</strong>}
       {loading && <Loader />}
-      <AnimateSharedLayout>
+      <LayoutGroup>
         {data && (
           <div className="flex flex-row items-center justify-center space-x-4">
             {!selectedUser &&
@@ -161,7 +161,7 @@ const SignIn = () => {
             </motion.div>
           )}
         </AnimatePresence>
-      </AnimateSharedLayout>
+      </LayoutGroup>
     </div>
   );
 };
